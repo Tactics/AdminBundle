@@ -1,0 +1,67 @@
+<div class="span3">
+  
+  <div class="account-container">
+
+    <div class="account-details">
+
+      <span class="account-name">{{ app.user.naam|title }}</span>
+
+      <span class="account-role">Administrator</span>
+
+      <span class="account-actions">
+        <a href="{{ path( 'persoon_show', {id: app.user.id }) }}">Profiel</a> |
+
+        <a href="{{ path( 'persoon_edit', {id: app.user.id }) }}">Bewerken</a>
+      </span>
+
+    </div> <!-- /account-details -->
+
+  </div> <!-- /account-container -->
+
+  <hr />
+  <div class="accordion" id="accordion">
+    
+    <ul id="main-nav" class="nav nav-tabs nav-stacked">
+      
+      {% for module_name, module in menu %}
+      
+        {% if module.route is defined %}
+      
+          <li>
+            <a href="{{ path( module.route ) }}">
+              {% if module.icon is defined %}<i class="{{ module.icon }}"></i>{% endif %}{{ module_name }}
+            </a>
+          </li>
+          
+        {% else %}
+          {% set index = loop.index %}
+          {% set actions = module.actions %}
+          
+            <li>
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
+                {% if module.icon is defined %}<i class="{{ module.icon }}"></i>{% endif %}{{ module_name }}
+              </a>
+
+              <div class="accordion-body collapse" id="collapse{{ index }}">
+                <div class="accordion-inner">
+                  <ul class="unstyled">
+          
+                    {% for action in actions %}
+
+                      <li>
+                        <a href="{{ path( action.route ) }}">
+                          {% if action.icon is defined %}<i class="{{ action.icon }}"></i>{% endif %}{{ action.label }}
+                        </a>
+                      </li>
+                      
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </li>
+        {% endif %}
+      {% else %}
+        Geen menu gedefinieerd.
+      {% endfor %}
+  </div>
+</div> <!-- /span3 -->

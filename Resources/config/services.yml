@@ -1,0 +1,7 @@
+parameters:
+#    tactics_admin.example.class: Tactics\Bundle\AdminBundle\Example
+
+services:
+#    tactics_admin.example:
+#        class: %tactics_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

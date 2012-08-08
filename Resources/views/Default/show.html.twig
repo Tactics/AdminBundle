@@ -1,0 +1,106 @@
+<div class="widget-content">
+  
+  {% if show.hasFields %}
+  
+    {% if show.hasLeftFields %}
+    
+      <table class="table table-condensed {{ show.hasRightFields ? 'span6' : 'span11' }}">
+        <tbody>
+          
+          {% for field in show.getLeft %}
+            <tr>
+              <th class="span2">
+                {{ field.label }}
+              </th>
+              <td>
+                {{ field.value|raw }}
+              </td>
+            </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+  
+    {% endif %}
+
+    {% if show.hasRightFields %}
+  
+      <table class="table table-condensed {{ show.hasLeftFields ? 'span5' : 'span11' }}">
+        <tbody>
+          
+          {% for field in show.getRight %}
+            <tr>
+              <th class="span2">
+                {{ field.label }}
+              </th>
+              <td>
+                {{ field.value|raw }}
+              </td>
+            </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+  
+    {% endif %}
+  
+  {% endif %}
+  
+  {% if show.hasHiddenFields %}
+  
+  <div class="row">
+    <div class="span12 collapse" id="hiddenfields">
+      
+      {% if show.hasLeftHiddenFields %}
+
+        <table class="table collapse table-condensed {{ show.hasRightHiddenFields ? 'span6' : 'span11' }}">
+          <tbody>
+
+            {% for field in show.getLeftHidden %}
+              <tr>
+                <th class="span2">
+                  {{ field.label }}
+                </th>
+                <td>
+                  {{ field.value|raw }}
+                </td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+
+      {% endif %}
+
+      {% if show.hasRightHiddenFields %}
+
+        <table class="table collapse table-condensed {{ show.hasLeftHiddenFields ? 'span5' : 'span11' }}">
+          <tbody>
+
+            {% for field in show.getRightHidden %}
+              <tr>
+                <th class="span2">
+                  {{ field.label }}
+                </th>
+                <td>
+                  {{ field.value|raw }}
+                </td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+
+      {% endif %}
+
+    </div>
+      </div>
+
+    <div class="span12">
+      <a href="#" data-toggle="collapse" data-target="#hiddenfields">
+        Toon meer
+      </a>
+    </div>
+  
+  {% endif %}
+</div>

@@ -1,0 +1,43 @@
+<div class="subnav subnav-fixed nav-collapse">
+    
+    <ul class="nav nav-pills">
+      
+      {% for module_name, module in menu %}
+      
+        {% if module.route is defined %}
+      
+          <li>
+            <a href="{{ path( module.route ) }}">
+              {% if module.icon is defined %}<i class="{{ module.icon }}"></i>{% endif %}{{ module_name }}
+            </a>
+          </li>
+          
+        {% else %}
+          {% set index = loop.index %}
+          {% set actions = module.actions %}
+          
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                {% if module.icon is defined %}<i class="{{ module.icon }}"></i>{% endif %}{{ module_name }}
+                <b class="caret"></b>
+              </a>
+                
+              <ul class="dropdown-menu">
+
+                {% for action in actions %}
+
+                  <li>
+                    <a href="{{ path( action.route ) }}">
+                      {% if action.icon is defined %}<i class="{{ action.icon }}"></i>{% endif %}{{ action.label }}
+                    </a>
+                  </li>
+
+                {% endfor %}
+              </ul>
+            </li>
+        {% endif %}
+      {% else %}
+        Geen menu gedefinieerd.
+      {% endfor %}
+  </ul>
+</div> <!-- /span3 -->

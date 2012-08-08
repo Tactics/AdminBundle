@@ -1,0 +1,10 @@
+    'edit' => array(
+        'icon'        => 'edit',
+        'title'       => 'Bewerk',
+        'route'       => 'persoon_edit',
+        'route_param' => 'id',
+        'attributes'  => array(
+            'class'   => 'js-confirm-delete'
+        )
+    )
+
