@@ -1,0 +1,24 @@
+{
+  "name": "tactics/admin-bundle",
+  "description": "AdminBundle",
+  "keywords": ["admin", "bundle"],
+  "type": "symfony-bundle",
+  "license": "",
+  "authors": [{
+    "name": "Bart Ruysseveldt",
+    "email": "bart@tactics.be"
+  }],
+  "require": {
+    "symfony/symfony": "2.1.*",
+    "propel/propel1": "1.6.*"
+  },
+  "require-dev": {
+    "sensio/framework-extra-bundle": "dev-master",
+    "fzaninotto/faker": "dev-master"
+  },
+  "autoload": {
+    "psr-0": { "Tactics\\AdminBundle": "" }
+  },
+  "target-dir": "Tactics/AdminBundle",
+  "minimum-stability": "dev"
+}
