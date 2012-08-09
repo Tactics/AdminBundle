@@ -17,8 +17,8 @@
     "fzaninotto/faker": "dev-master"
   },
   "autoload": {
-    "psr-0": { "Tactics\\AdminBundle": "" }
+    "psr-0": { "Tactics\\Bundle\\AdminBundle": "" }
   },
-  "target-dir": "Tactics/AdminBundle",
+  "target-dir": "Tactics/Bundle/AdminBundle",
   "minimum-stability": "dev"
 }
