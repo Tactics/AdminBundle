@@ -3,6 +3,7 @@
 namespace Tactics\Bundle\AdminBundle\Show;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use \BasePeer;
 
 class Show {
   
@@ -26,17 +27,22 @@ class Show {
   protected $is_collapsed = false;
   
   protected $tabs = array();
-  
+
+  protected $top_fields = array();
+  protected $top_hidden_fields = array();
   protected $left_fields = array();
   protected $left_hidden_fields = array();
   protected $right_fields = array();
   protected $right_hidden_fields = array();
-      
+  protected $bottom_fields = array();
+  protected $bottom_hidden_fields = array();
+  
   public function __construct($object, ContainerInterface $container)
   {
     $this->setObject($object);
     $this->setObjectPeer();
     $this->setContainer($container);
+    
   }
   
   /**
@@ -49,10 +55,48 @@ class Show {
    */
   protected function createField($field, $field_type, $options)
   {
-    // Eerste methode maken om waarde op te halen.
-    $getMethod = $this->getMethod($field);
-    // Waarde ophalen:
-    $value = $this->getObject()->$getMethod();
+    // Indien het veld niet bekend is, betreft het een custom veld
+    if(! $this->isObjectField($field))
+    {
+      // custum / veld teruggeven
+      return array(
+        'label' => (isset($options['field_label']) ? $options['field_label'] : ''),
+        'value' => $field
+      );      
+    }
+
+    // Indien het veld een foreign key is, halen we het object op en standaard weergave __toString
+    $relativeField = substr($field, strpos($field, '.')+1);
+    $foreignFields = $this->object_peer->getTableMap()->getForeignKeys();
+    if(isset($foreignFields[$relativeField]))
+    {
+      // Opzoeken van kolom
+      $relatedColumn = $foreignFields[$relativeField]->getRelatedColumnName();
+      // Opzoeken van class
+      $relatedClassName = $foreignFields[$relativeField]->getRelation()->getForeignTable()->getClassname();
+      // Opzoeken van gerelateerd object
+      $foreignObject =  eval('return ' . ucfirst($relatedClassName) . 'Query::create()->findOneBy' . ucfirst($relatedColumn) . '(' . $this->getObject()->getId() . ');');
+      
+      // Default waarde
+      $value  = $foreignObject->__toString();
+      // Standaard label overschrijven (bv. PERSOON IPV PERSOON ID)
+      if(! isset($options['field_label']))
+      {
+        $options['field_label'] = ucfirst($foreignFields[$relativeField]->getRelatedTableName());
+      }
+    }
+    else
+    {
+      // Eerste methode maken om waarde op te halen.
+      $getMethod = $this->getMethod($field);
+      // Waarde ophalen:
+      $value = $this->getObject()->$getMethod();      
+    }
+    
+    if(isset($options['modifier']))
+    {
+      $value = eval('return ' . $options['modifier'] . '($value);');
+    }
     
     // als field_type niet gezet is, dit automatisch gaan bepalen:
     if (! $field_type)
@@ -414,127 +458,152 @@ class Show {
     return $this;
   }
   
-  /**
-   * Voegt een field toe aan de linkerkolom van het Show object. 
+  /** 
+   * Voegt een veld toe aan de bovenzijde 
    * 
-   * @param $field
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
+   * 
+   */
+  public function addTop($field, $field_type = null, $options = array())
+  {
+    return $this->addField('top', false, $field, $field_type, $options);
+  }  
+  
+  /** 
+   * Voegt een veld toe aan de linkerzijde 
+   * 
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
+   * 
    */
   public function addLeft($field, $field_type = null, $options = array())
   {
-    
-    $this->left_fields[] = $this->createField($field, $field_type, $options);
-    
-    return $this;
+    return $this->addField('left', false, $field, $field_type, $options);
   }
   
-  /**
-   * Geeft de linkse velden terug.
+  /** 
+   * Voegt een veld toe aan de rechterzijde 
    * 
-   * @return array 
-   */
-  public function getLeft()
-  {
-    return $this->left_fields;
-  }
-  
-  /**
-   * Voegt een field toe aan de hidden linkerkolom van het Show object.
-   */
-  public function addLeftHidden($field, $field_type = null, $options = array())
-  {
-    $this->left_hidden_fields[] = $this->createField($field, $field_type, $options);
-    
-    return $this;
-  }
-  
-  /**
-   * Geeft de linkse hidden velden terug.
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
    * 
-   * @return array 
-   */
-  public function getLeftHidden()
-  {
-    return $this->left_hidden_fields;
-  }
-  
-  /**
-   * Voegt een field toe aan de rechterkolom van het Show object.
    */
   public function addRight($field, $field_type = null, $options = array())
   {
-    $this->right_fields[] = $this->createField($field, $field_type, $options);
-    
-    return $this;
+    return $this->addField('right', false, $field, $field_type, $options);
   }
   
-  /**
-   * Geeft de rechtse velden terug.
+  /** 
+   * Voegt een veld toe aan de onderzijde 
    * 
-   * @return array 
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
+   * 
    */
-  public function getRight()
+  public function addBottom($field, $field_type = null, $options = array())
   {
-    return $this->right_fields;
+    return $this->addField('bottom', false, $field, $field_type, $options);
   }
   
-  /**
-   * Voegt een field toe aan de hidden rechterkolom van het Show object.
+  /** 
+   * Voegt een veld toe aan de bovenzijde (verborgen)
+   * 
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
+   * 
+   */
+  public function addTopHidden($field, $field_type = null, $options = array())
+  {
+    return $this->addField('top', true, $field, $field_type, $options);
+  }  
+  
+  /** 
+   * Voegt een veld toe aan de linkerzijde (verborgen)
+   * 
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
+   * 
+   */
+  public function addLeftHidden($field, $field_type = null, $options = array())
+  {
+    return $this->addField('left', true, $field, $field_type, $options);
+  }
+  
+  /** 
+   * Voegt een veld toe aan de rechterzijde (verborgen)
+   * 
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
+   * 
    */
   public function addRightHidden($field, $field_type = null, $options = array())
   {
-    $this->right_hidden_fields[] = $this->createField($field, $field_type, $options);
-    
+    return $this->addField('right', true, $field, $field_type, $options);
+  }
+  
+  /** 
+   * Voegt een veld toe aan de onderzijde (verborgen)
+   * 
+   * @param string $field
+   * @param string $field_type
+   * @param array $options
+   * 
+   */
+  public function addBottomHidden($field, $field_type = null, $options = array())
+  {
+    return $this->addField('bottom', true, $field, $field_type, $options);
+  }
+  
+  /**
+   * Voegt een field toe aan een bepaalde positie
+   * 
+   * @param string $positie (top, left, right, bottom)
+   * @param boolean $hidden
+   * @param $field
+   * @param (optional) $field_type
+   * @param (optional) $options
+   */
+  public function addField($positie, $hidden, $field, $field_type = null, $options = array())
+  {
+    $veldParam = $positie . ($hidden ? '_hidden' : '') . '_fields';
+    array_push($this->$veldParam, $this->createField($field, $field_type, $options));
     return $this;
   }
   
   /**
-   * Geeft de linkse velden terug.
+   * Geeft de velden terug van een bepaalde positie
+   * 
+   * @param string $positie (top, left, right, bottom)
+   * @param (optional) boolean $hidden
    * 
    * @return array 
    */
-  public function getRightHidden()
+  public function getFields($positie, $hidden=false)
   {
-    return $this->right_hidden_fields;
+    return eval('return $this->' . $positie . ($hidden ? '_hidden' : '') . '_fields;');
   }
-
+  
   /**
-   * Geeft terug of de show linkse velden heeft.
+   * Geeft terug of de show velden heeft
+   * 
+   * @param string $positie (top, left, right, bottom)
+   * @param boolean $hidden
    * 
    * @return boolean 
    */
-  public function hasLeftFields()
+  public function hasFieldsAtPosition($positie, $hidden = false)
   {
-    return count($this->left_fields) ? true : false;
-  }
-
-  /**
-   * Geeft terug of de show linkse velden heeft.
-   * 
-   * @return boolean 
-   */
-  public function hasLeftHiddenFields()
-  {
-    return count($this->left_hidden_fields) ? true : false;
-  }
-
-  /**
-   * Geeft terug of de show linkse velden heeft.
-   * 
-   * @return boolean 
-   */
-  public function hasRightFields()
-  {
-    return count($this->right_fields) ? true : false;
-  }
-
-  /**
-   * Geeft terug of de show linkse velden heeft.
-   * 
-   * @return boolean 
-   */
-  public function hasRightHiddenFields()
-  {
-    return count($this->right_hidden_fields) ? true : false;
+    $positieVelden = eval('return $this->' . $positie . ($hidden ? '_hidden' : '') . '_fields;');
+    
+    return count($positieVelden) ? true : false;
   }
   
   /**
@@ -544,7 +613,10 @@ class Show {
    */
   public function hasFields()
   {
-    return $this->hasLeftFields() || $this->hasRightFields() ? true : false;
+    return ($this->hasFieldsAtPosition('top') || 
+           $this->hasFieldsAtPosition('bottom') || 
+            $this->hasFieldsAtPosition('left') ||
+            $this->hasFieldsAtPosition('right')) ? true : false;
   }
   
   /**
@@ -554,7 +626,10 @@ class Show {
    */
   public function hasHiddenFields()
   {
-    return $this->hasLeftHiddenFields() || $this->hasRightHiddenFields() ? true : false;
+    return ($this->hasFieldsAtPosition('top', true) || 
+           $this->hasFieldsAtPosition('bottom', true) || 
+            $this->hasFieldsAtPosition('left', true) ||
+            $this->hasFieldsAtPosition('right', true)) ? true : false;
   }
   
   /**
@@ -570,6 +645,16 @@ class Show {
                   'object' => $this->getObject()
                 )
         );
+  }
+  
+  /**
+   * Controleert of dit veld een objectveld is, zoniet, betreft het een custom veld
+   * 
+   * @return Boolean TRUE/FALSE
+   */
+  private function isObjectField($field_name)
+  {
+    return in_array($field_name, $this->getObjectPeer()->getFieldNames(BasePeer::TYPE_COLNAME)) ? true : false;
   }
 }
 
