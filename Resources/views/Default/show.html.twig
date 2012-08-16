@@ -2,12 +2,33 @@
   
   {% if show.hasFields %}
   
-    {% if show.hasLeftFields %}
+    {% if show.hasFieldsAtPosition('top') %}
     
-      <table class="table table-condensed {{ show.hasRightFields ? 'span6' : 'span11' }}">
+      <table class="table table-condensed span11">
         <tbody>
           
-          {% for field in show.getLeft %}
+          {% for field in show.getFields('top') %}
+            <tr>
+              <th class="span2">
+                {{ field.label }}
+              </th>
+              <td>
+                {{ field.value|raw }}
+              </td>
+            </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+  
+    {% endif %}
+  
+    {% if show.hasFieldsAtPosition('left') %}
+    
+      <table class="table table-condensed {{ show.hasFieldsAtPosition('right') ? 'span6' : 'span11' }}">
+        <tbody>
+          
+          {% for field in show.getFields('left') %}
             <tr>
               <th class="span2">
                 {{ field.label }}
@@ -23,12 +44,12 @@
   
     {% endif %}
 
-    {% if show.hasRightFields %}
+    {% if show.hasFieldsAtPosition('right') %}
   
-      <table class="table table-condensed {{ show.hasLeftFields ? 'span5' : 'span11' }}">
+      <table class="table table-condensed {{ show.hasFieldsAtPosition('left') ? 'span5' : 'span11' }}">
         <tbody>
           
-          {% for field in show.getRight %}
+          {% for field in show.getFields('right') %}
             <tr>
               <th class="span2">
                 {{ field.label }}
@@ -43,6 +64,27 @@
       </table>
   
     {% endif %}
+  
+    {% if show.hasFieldsAtPosition('bottom') %}
+    
+      <table class="table table-condensed span11">
+        <tbody>
+          
+          {% for field in show.getFields('bottom') %}
+            <tr>
+              <th class="span2">
+                {{ field.label }}
+              </th>
+              <td>
+                {{ field.value|raw }}
+              </td>
+            </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+  
+    {% endif %}  
   
   {% endif %}
   
@@ -51,12 +93,33 @@
   <div class="row">
     <div class="span12 collapse" id="hiddenfields">
       
-      {% if show.hasLeftHiddenFields %}
+      {% if show.hasFieldsAtPosition('top', true) %}
 
-        <table class="table collapse table-condensed {{ show.hasRightHiddenFields ? 'span6' : 'span11' }}">
+        <table class="table collapse table-condensed span11">
           <tbody>
 
-            {% for field in show.getLeftHidden %}
+            {% for field in show.getFields('top',true) %}
+              <tr>
+                <th class="span2">
+                  {{ field.label }}
+                </th>
+                <td>
+                  {{ field.value|raw }}
+                </td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+
+      {% endif %}
+      
+      {% if show.hasFieldsAtPosition('left', true) %}
+
+        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('right', true)  ? 'span6' : 'span11' }}">
+          <tbody>
+
+            {% for field in show.getFields('left',true) %}
               <tr>
                 <th class="span2">
                   {{ field.label }}
@@ -72,12 +135,12 @@
 
       {% endif %}
 
-      {% if show.hasRightHiddenFields %}
+      {% if show.hasFieldsAtPosition('right', true) %}
 
-        <table class="table collapse table-condensed {{ show.hasLeftHiddenFields ? 'span5' : 'span11' }}">
+        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('left', true) ? 'span5' : 'span11' }}">
           <tbody>
 
-            {% for field in show.getRightHidden %}
+            {% for field in show.getFields('right', true) %}
               <tr>
                 <th class="span2">
                   {{ field.label }}
@@ -92,6 +155,27 @@
         </table>
 
       {% endif %}
+      
+      {% if show.hasFieldsAtPosition('bottom', true) %}
+
+        <table class="table collapse table-condensed span11">
+          <tbody>
+
+            {% for field in show.getFields('bottom',true) %}
+              <tr>
+                <th class="span2">
+                  {{ field.label }}
+                </th>
+                <td>
+                  {{ field.value|raw }}
+                </td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+
+      {% endif %}      
 
     </div>
       </div>
