@@ -27,7 +27,7 @@ class ObjectRouteResolver implements ContainerAwareInterface
       {
           $this->setContainer($container);
 
-          $defaultObjectRoutes = $this->container->getParameter('object_routes');
+          $this->defaultObjectRoutes = $this->container->getParameter('object_routes');
       }
 
       /**
@@ -41,12 +41,15 @@ class ObjectRouteResolver implements ContainerAwareInterface
       /**
        * Retrieve default route for class from yml file.
        *
-       * @param String $class The class.
+       * @param  string $class The class.
+       * @return string The route name.
        */
       public function retrieveByClass($class)
       {
-          if (! array_key_exists($class, $this->defaultObjectRoutes)) {
+          if (false === array_key_exists($class, $this->defaultObjectRoutes)) {
               throw new UnknownClassException('Unknown class '.$class);       
           }
+
+          return $this->defaultObjectRoutes[$class];
       }
 }
