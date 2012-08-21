@@ -78,7 +78,14 @@ class Show {
       $foreignObject =  eval('return ' . ucfirst($relatedClassName) . 'Query::create()->findOneBy' . ucfirst($relatedColumn) . '(' . $this->getObject()->getId() . ');');
       
       // Default waarde
-      $value  = $foreignObject->__toString();
+      if($foreignObject)
+      {
+        $value  = $foreignObject->__toString();
+      }
+      else
+      {
+        $value = '-';
+      }
       // Standaard label overschrijven (bv. PERSOON IPV PERSOON ID)
       if(! isset($options['field_label']))
       {
@@ -331,7 +338,7 @@ class Show {
   protected function formatNullField($value, $options = array())
   {
     
-    $field_value = isset($options['null_value']) ? $options['null_value'] : 'Waarde onbekend';
+    $field_value = isset($options['null_value']) ? $options['null_value'] : '-';
     
     return $field_value;
   }
