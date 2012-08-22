@@ -29,3 +29,5 @@ Include this file in your config.yml:
 
     $container->get('tactics.object_route_resolver')->retrieveByClass('Tactics\Bundle\PersoonBundle\Model\Persoon');
 
+### Nice to know
+    If you have a menu item that has a route named 'home' this item will not be shown on the homepage
