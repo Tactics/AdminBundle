@@ -11,14 +11,9 @@ use Tactics\Bundle\PersoonBundle\Model\Persoon;
 
 use Tactics\Bundle\AdminBundle\Show\Show;
 
-/**
- * @Breadcrumb("Home")
- */
 class DefaultController extends Controller
 {
     /**
-     * @Breadcrumb("Dashboard")
-     * 
      * @return type
      */
     public function dashboardAction()
