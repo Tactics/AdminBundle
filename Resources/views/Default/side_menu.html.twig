@@ -26,13 +26,13 @@
       {% for module_name, module in menu %}
       
         {% if module.route is defined %}
-      
+        {% if module.route != home %}
           <li>
             <a href="{{ path( module.route ) }}">
               {% if module.icon is defined %}<i class="{{ module.icon }}"></i>{% endif %}{{ module_name }}
             </a>
           </li>
-          
+        {% endif %}
         {% else %}
           {% set index = loop.index %}
           {% set actions = module.actions %}
