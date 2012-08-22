@@ -47,7 +47,7 @@ class ObjectRouteResolver implements ContainerAwareInterface
       public function retrieveByClass($class)
       {
           if (false === array_key_exists($class, $this->defaultObjectRoutes)) {
-              throw new UnknownClassException('Unknown class '.$class);       
+              throw new UnknownClassException($class);       
           }
 
           return $this->defaultObjectRoutes[$class];
