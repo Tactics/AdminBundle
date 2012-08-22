@@ -31,3 +31,9 @@ Include this file in your config.yml:
 
 ### Nice to know
     If you have a menu item that has a route named 'home' this item will not be shown on the homepage
+    
+    Title attribute and page title can be set as global twig parameters in config.yml 
+        twig:
+            globals:
+                title: 
+                page_title:
