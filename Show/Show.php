@@ -233,11 +233,7 @@ class Show {
   {
     $value = strtolower($value);
     
-    if (! isset($options['case']))
-    {
-      $value = ucfirst($value);
-    }
-    else
+    if (isset($options['case']))
     {
       switch($options['case'])
       {
