@@ -1,24 +1,4 @@
 <div class="span3">
-  
-  <div class="account-container">
-
-    <div class="account-details">
-
-      <span class="account-name">{{ app.user.naam|title }}</span>
-
-      <span class="account-role">Administrator</span>
-
-      <span class="account-actions">
-        <a href="{{ path( 'persoon_show', {id: app.user.id }) }}">Profiel</a> |
-
-        <a href="{{ path( 'persoon_edit', {id: app.user.id }) }}">Bewerken</a>
-      </span>
-
-    </div> <!-- /account-details -->
-
-  </div> <!-- /account-container -->
-
-  <hr />
   <div class="accordion" id="accordion">
     
     <ul id="main-nav" class="nav nav-tabs nav-stacked">
