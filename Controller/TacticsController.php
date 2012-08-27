@@ -11,12 +11,12 @@ class TacticsController extends Controller
      *  Creates an not found exception if the objects does not exists
      * 
      * @param Object
-     * @param (optional) String $name of object
+     * @param (optional) String $type of the object
      */
-    public function createExceptionIfNotFound($object, $name = false)
+    public function createExceptionIfNotFound($object, $type = false)
     {     
       if(! $object) {
-       $notice = ($name ? $name : 'Object') . ' not found.';
+       $notice = ($type ? $type : 'Object') . ' not found.';
        throw $this->createNotFoundException($notice);
       }
     }
