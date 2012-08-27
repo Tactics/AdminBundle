@@ -2,6 +2,23 @@ AdminBundle
 ===========
 
 
+Flash messages
+--------------
+Flash messages "bootstrap style" are supported by a twig template that's included
+in the main layouts.
+
+There are 4 types of messages: warning, info, error and success
+
+### Usage
+
+Simply add messages to the flash bag to use:
+
+    $this->get('session')->getFlashBag()->add('message.error', 'The world was destroyed');
+
+Some goes for message.warning, message.info and message.success
+
+
+
 ObjectRouteResolver
 -------------------
 
