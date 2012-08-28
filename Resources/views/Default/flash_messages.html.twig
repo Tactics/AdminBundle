@@ -1,0 +1,8 @@
+{% for type in ["error", "warning", "success", "info"] %}
+    {% for flashMessage in app.session.flashbag.get("message.#{type}") %}
+        <div class="alert alert-{{ type }}">
+            <a href="#" class="close" data-dismiss="alert">×</a>
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+{% endfor %}

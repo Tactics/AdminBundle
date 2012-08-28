@@ -103,6 +103,8 @@
         <div class="span12">
       {% endblock %}
 
+        {% include 'TacticsAdminBundle:Default:flash_messages.html.twig' %}
+                
         {{ apy_breadcrumb_trail_render() }}
         {{ tactics_trail_render() }}
 

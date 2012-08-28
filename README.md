@@ -2,6 +2,23 @@ AdminBundle
 ===========
 
 
+Flash messages
+--------------
+Flash messages "bootstrap style" are supported by a twig template that's included
+in the main layouts.
+
+There are 4 types of messages: warning, info, error and success
+
+### Usage
+
+Simply add messages to the flash bag to use:
+
+    $this->get('session')->getFlashBag()->add('message.error', 'The world was destroyed');
+
+Some goes for message.warning, message.info and message.success
+
+
+
 ObjectRouteResolver
 -------------------
 
@@ -29,3 +46,11 @@ Include this file in your config.yml:
 
     $container->get('tactics.object_route_resolver')->retrieveByClass('Tactics\Bundle\PersoonBundle\Model\Persoon');
 
+### Nice to know
+    If you have a menu item that has a route named 'home' this item will not be shown on the homepage
+    
+    Title attribute and page title can be set as global twig parameters in config.yml 
+        twig:
+            globals:
+                title: 
+                page_title:
