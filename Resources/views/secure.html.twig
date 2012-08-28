@@ -51,25 +51,27 @@
 					<li class="divider-vertical"></li>
 					
           <li class="dropdown">
-
+              
             <a data-toggle="dropdown" class="dropdown-toggle " href="#">
-              {{ app.user.naam|title }} <b class="caret"></b>							
+              {{ app.user.username|title }} <b class="caret"></b>							
             </a>
 
             <ul class="dropdown-menu">
               
               <li>
-                <a href="{{ path( 'persoon_show', {id: app.user.id }) }}">Profiel</a>
+                <a href="{{ path( 'persoon_show', {id: app.user.id }) }}">Profile</a>
               </li>
 
               <li>
-                <a href="{{ path( 'config_personal_edit' )}}">Persoonlijke configuratie</a>
+                <a href="{{ path( 'config_personal_edit' )}}">My settings</a>
               </li>
               
               <li class="divider"></li>
 
               <li>
-                <a href="{{ path('logout') }}"><i class="icon-off"></i> Logout</a>
+                <a href="{{ path('fos_user_security_logout') }}">
+                    <i class="icon-off"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
               </li>
               
             </ul>
