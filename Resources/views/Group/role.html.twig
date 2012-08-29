@@ -1,0 +1,11 @@
+<ul>
+    {% for rolename, subroles in role_hierarchy %}        
+    <li>
+        {{ form_row(form[rolename]) }}        
+        
+        {% if subroles is iterable %}
+            {% include "TacticsAdminBundle:Group:role.html.twig" with {role_hierarchy: subroles} %}                    
+        {% endif %}
+     </li>
+    {% endfor %}
+</ul>
