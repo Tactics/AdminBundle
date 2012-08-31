@@ -26,7 +26,8 @@
 [1. Global]
 */
 body {	
-	font: 13px/1.7em 'Open Sans', arial, sans-serif;
+	/* tactics // font: 13px/1.7em 'Open Sans', arial, sans-serif; */
+    /* tactics */ font-family: 'Open Sans', arial, sans-serif;
 	
 	background: url(../img/body-bg.png) repeat 0 0;
 }
@@ -66,8 +67,28 @@ input {
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
 }
 
+/* tactics */ 
 [class^="icon-"], [class*=" icon-"] {
     background-image: none;
+}
+
+/* tactics */
+.breadcrumb {
+    background-color: none;
+    border-radius: 2px 2px 2px 2px;
+    margin: 0 0 8px;
+    padding: 2px 15px;
+}
+
+/* tactics */
+.form-actions {
+    background-color: #FCFCFC;
+}
+
+/* tactics */
+select, input[type="file"] {
+    height: 24px;
+    line-height: 24px;
 }
 
 
@@ -163,7 +184,8 @@ input {
 */
 
 #content {	
-	padding-top: 100px;
+	/* tactics padding-top: 100px; */
+    padding-top: 95px;
 }
 
 
@@ -195,8 +217,11 @@ input {
 	
 	position: relative;
 	
+    /* tactics 
 	height: 40px;
-	line-height: 40px;
+	line-height: 40px; */
+	height: 34px;
+	line-height: 34px;
 	
 	background: #E9E9E9;
 	background:-moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%); /* FF3.6+ */
