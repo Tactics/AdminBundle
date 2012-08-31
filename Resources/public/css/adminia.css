@@ -25,7 +25,6 @@
 /*------------------------------------------------------------------
 [1. Global]
 */
-
 body {	
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
 	
@@ -65,6 +64,10 @@ hr {
 
 input {
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    background-image: none;
 }
 
 
