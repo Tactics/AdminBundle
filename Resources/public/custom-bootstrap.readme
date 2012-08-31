@@ -1,0 +1,7 @@
+
+Update bootstrap: customize this:
+
+@baseFontSize 12px;
+@baseLineHeight 14px;
+@inputBorderRadius 2px;
+
