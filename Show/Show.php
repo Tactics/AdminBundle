@@ -12,6 +12,7 @@ class Show {
   const FIELD_TYPE_DATE = 'date';
   const FIELD_TYPE_DECIMAL = 'decimal';
   const FIELD_TYPE_MONEY = 'money';
+  const FIELD_TYPE_ARRAY = 'array';
   const FIELD_TYPE_NULL = 'empty';
 
   const CASE_LOWER = 'lower';
@@ -76,8 +77,13 @@ class Show {
       $relatedClassName = $foreignFields[$relativeField]->getRelation()->getForeignTable()->getClassname();
       // Methode om gerelateerd object id op te halen:
       $getRelatedMethod = $this->getMethod($field);
+
       // Opzoeken van gerelateerd object
-      $foreignObject =  eval('return ' . ucfirst($relatedClassName) . 'Query::create()->findOneBy' . ucfirst($relatedColumn) . '(' . $this->getObject()->$getRelatedMethod() . ');');
+      if ($this->getObject()->$getRelatedMethod()) {
+          $foreignObject =  eval('return ' . ucfirst($relatedClassName) . 'Query::create()->findPk(' . $this->getObject()->$getRelatedMethod() . ');');
+      } else {
+          $foreignObject = null;
+      }
 
       // Default waarde
       if($foreignObject)
@@ -169,6 +175,10 @@ class Show {
     {
       $field_type = self::FIELD_TYPE_DECIMAL;
     }
+    // array
+    elseif (is_array($value)) {
+        $field_type = self::FIELD_TYPE_ARRAY;
+    }
     // null
     elseif (! $value)
     {
@@ -222,6 +232,9 @@ class Show {
         break;
       case self::FIELD_TYPE_OBJECT:
         $field_value = $this->formatObjectField($value, $options);
+        break;
+      case self::FIELD_TYPE_ARRAY:
+        $field_value = $this->formatArrayField($value, $options);
         break;
       case self::FIELD_TYPE_NULL:
         $field_value = $this->formatNullField($value, $options);
@@ -332,6 +345,23 @@ class Show {
     }
 
     return $field_value;
+  }
+
+  /**
+   * Formats an array field
+   *
+   * @param array $value
+   * @param array $options
+   *
+   * @return string $field_value
+   */
+  protected function formatArrayField($value, $options = array())
+  {
+      $separator = isset($options['separator']) ? $options['separator'] : ', ';
+
+      $field_value = implode($separator, $value);
+
+      return $field_value;
   }
 
   protected function formatNullField($value, $options = array())
