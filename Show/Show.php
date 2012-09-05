@@ -37,13 +37,17 @@ class Show {
   protected $right_hidden_fields = array();
   protected $bottom_fields = array();
   protected $bottom_hidden_fields = array();
+  
+  protected $spanwidth = 'span11';
 
-  public function __construct($object, ContainerInterface $container)
+  public function __construct($object, ContainerInterface $container, $options)
   {
     $this->setObject($object);
     $this->setObjectPeer();
     $this->setContainer($container);
-
+    if (isset ($options['spanwidth'])) {
+        $this->setSpanWidth($options['spanwidth']);
+    }
   }
 
   /**
@@ -676,7 +680,8 @@ class Show {
     return $this->getContainer()->get("templating")->render(
                 "TacticsAdminBundle:Default:show.html.twig", array(
                   'show' => $this,
-                  'object' => $this->getObject()
+                  'object' => $this->getObject(),
+                  'spanwidth' => $this->getSpanWidth()
                 )
         );
   }
@@ -689,6 +694,28 @@ class Show {
   private function isObjectField($field_name)
   {
     return in_array($field_name, $this->getObjectPeer()->getFieldNames(BasePeer::TYPE_COLNAME)) ? true : false;
+  }
+  
+  /**
+   * Sets the span attribute 
+   * 
+   * @param String $spanwidth a span class 
+   */
+  
+  private function setSpanWidth($spanwidth)
+  {
+      $this->spanwidth = $spanwidth;
+  }
+  
+  /**
+   * Gets the span attribute 
+   * 
+   * @return String $spanwidth a span class 
+   */
+  
+  private function getSpanWidth()
+  {
+      return $this->spanwidth;
   }
 }
 
