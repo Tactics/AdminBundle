@@ -40,7 +40,7 @@ class Show {
   
   protected $spanwidth = 'span11';
 
-  public function __construct($object, ContainerInterface $container, $options)
+  public function __construct($object, ContainerInterface $container, $options = null)
   {
     $this->setObject($object);
     $this->setObjectPeer();
