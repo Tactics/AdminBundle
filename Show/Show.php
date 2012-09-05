@@ -246,8 +246,6 @@ class Show {
 
   protected function formatStringField($value, $options = array())
   {
-    $value = strtolower($value);
-
     if (isset($options['case']))
     {
       switch($options['case'])
