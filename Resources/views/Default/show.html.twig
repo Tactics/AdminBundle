@@ -1,10 +1,8 @@
-<div class="widget-content">
-  
   {% if show.hasFields %}
   
     {% if show.hasFieldsAtPosition('top') %}
     
-      <table class="table table-condensed span11">
+      <table class="table table-condensed {{spanwidth}}">
         <tbody>
           
           {% for field in show.getFields('top') %}
@@ -25,7 +23,7 @@
   
     {% if show.hasFieldsAtPosition('left') %}
     
-      <table class="table table-condensed {{ show.hasFieldsAtPosition('right') ? 'span6' : 'span11' }}">
+      <table class="table table-condensed {{ show.hasFieldsAtPosition('right') ? 'span6' : spanwidth }}">
         <tbody>
           
           {% for field in show.getFields('left') %}
@@ -46,7 +44,7 @@
 
     {% if show.hasFieldsAtPosition('right') %}
   
-      <table class="table table-condensed {{ show.hasFieldsAtPosition('left') ? 'span5' : 'span11' }}">
+      <table class="table table-condensed {{ show.hasFieldsAtPosition('left') ? 'span5' : spanwidth }}">
         <tbody>
           
           {% for field in show.getFields('right') %}
@@ -67,7 +65,7 @@
   
     {% if show.hasFieldsAtPosition('bottom') %}
     
-      <table class="table table-condensed span11">
+      <table class="table table-condensed {{spanwidth}}">
         <tbody>
           
           {% for field in show.getFields('bottom') %}
@@ -95,7 +93,7 @@
       
       {% if show.hasFieldsAtPosition('top', true) %}
 
-        <table class="table collapse table-condensed span11">
+        <table class="table collapse table-condensed {{spanwidth}}">
           <tbody>
 
             {% for field in show.getFields('top',true) %}
@@ -116,7 +114,7 @@
       
       {% if show.hasFieldsAtPosition('left', true) %}
 
-        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('right', true)  ? 'span6' : 'span11' }}">
+        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('right', true)  ? 'span6' : spanwidth }}">
           <tbody>
 
             {% for field in show.getFields('left',true) %}
@@ -137,7 +135,7 @@
 
       {% if show.hasFieldsAtPosition('right', true) %}
 
-        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('left', true) ? 'span5' : 'span11' }}">
+        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('left', true) ? 'span5' : spanwidth }}">
           <tbody>
 
             {% for field in show.getFields('right', true) %}
@@ -158,7 +156,7 @@
       
       {% if show.hasFieldsAtPosition('bottom', true) %}
 
-        <table class="table collapse table-condensed span11">
+        <table class="table collapse table-condensed {{spanwidth}}">
           <tbody>
 
             {% for field in show.getFields('bottom',true) %}
@@ -187,4 +185,3 @@
     </div>
   
   {% endif %}
-</div>
