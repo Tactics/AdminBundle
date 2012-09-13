@@ -1,143 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}{{page_title|default('Tactics')}}{% endblock %}</title>
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{{page_title|default('Tactics')}}{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        {% block stylesheets %}
+          <link href="{{ asset('/bundles/tacticsadmin/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+          <link href="{{ asset('/bundles/tacticsadmin/css/bootstrap-responsive.min.css') }}" type="text/css" rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
-    {% block stylesheets %}
-      <link href="{{ asset('/bundles/tacticsadmin/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
-      <link href="{{ asset('/bundles/tacticsadmin/css/bootstrap-responsive.min.css') }}" type="text/css" rel="stylesheet">
-
-      <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-      <link href="{{ asset('/bundles/tacticsadmin/css/font-awesome.css') }}" type="text/css" rel="stylesheet">
-      <link href="{{ asset('/bundles/tacticsadmin/css/adminia.css') }}" type="text/css" rel="stylesheet">
-      <link href="{{ asset('/bundles/tacticsadmin/css/pages/login.css') }}" type="text/css" rel="stylesheet">
-      <link href="{{ asset('/bundles/tacticsadmin/css/adminia-responsive.css') }}" type="text/css" rel="stylesheet">
-
-      <link href="{{ asset('/bundles/tacticsadmin/css/pages/dashboard.css') }}" type="text/css" rel="stylesheet">
+          <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+          <link href="{{ asset('/bundles/tacticsadmin/css/font-awesome.css') }}" type="text/css" rel="stylesheet">
+          <link href="{{ asset('/bundles/tacticsadmin/css/adminia.css') }}" type="text/css" rel="stylesheet">
+          <link href="{{ asset('/bundles/tacticsadmin/css/pages/login.css') }}" type="text/css" rel="stylesheet">
+          <link href="{{ asset('/bundles/tacticsadmin/css/adminia-responsive.css') }}" type="text/css" rel="stylesheet">
+          <link href="{{ asset('/bundles/tacticsadmin/css/pages/dashboard.css') }}" type="text/css" rel="stylesheet">
       <link href="{{asset('/bundles/tacticsadmin/css/print_css.css')}}" type="text/css" rel="stylesheet" media="print" />
 
-      <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-      <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-      <![endif]-->
-
-    {% endblock %}
-
-  </head>
-
-<body>
-
-<div class="navbar navbar-fixed-top navbar-inverse">
-	<div class="navbar-inner">
-
-		<div class="container">
-
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-
-			<a class="brand" href="{{ path('home') }}">{{title|default('Tactics admin')}}</a>
-
-			<div class="nav-collapse">
-
-				<ul class="nav pull-right">
-
-					<li class="divider-vertical"></li>
-
-          <li class="dropdown">
-
-            <a data-toggle="dropdown" class="dropdown-toggle " href="#">
-              {{ app.user.name|title }} <b class="caret"></b>
-            </a>
-
-            <ul class="dropdown-menu">
-
-              <li>
-                <a href="{{ path( 'person_show', {id: app.user.id }) }}">Profile</a>
-              </li>
-
-              <li>
-                <a href="{{ path( 'config_personal_edit' )}}">Personal configuration</a>
-              </li>
-
-              <li class="divider"></li>
-
-              <li>
-                <a href="{{ path('logout') }}"><i class="icon-off"></i> Logout</a>
-              </li>
-
-            </ul>
-
-          </li>
-
-				</ul>
-
-			</div> <!-- /nav-collapse -->
-
-		</div> <!-- /container -->
-
-	</div> <!-- /navbar-inner -->
-
-</div> <!-- /navbar -->
+          <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+          <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+          <![endif]-->
+        {% endblock %}
+    </head>
+    <body>
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="{{ path('home') }}">{{title|default('Tactics admin')}}</a>
+                {% block top_menu %}
+                  {% render 'TacticsAdminBundle:Default:menu' with { 'top' : true  } %}
+                {% endblock %}
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          {{ app.user.name|title }} <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path( 'person_show', {id: app.user.id }) }}">Profile</a>
+                            </li>
+                           <li>
+                                <a href="{{ path( 'persoon_profile_detail', {id: app.user.id}) }}">Profile analysis</a>
+                            </li> <li>
+                                <a href="{{ path( 'config_personal_edit', {type: "tactics.config.form.personal_sample"} )}}">Settings</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('training_need') }}">Training need</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ path('logout') }}"><i class="icon-off"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              </div> <!-- /container -->
+        </div> <!-- /navbar-inner -->
+    </div> <!-- /navbar -->
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                  <div class="span12">
+                      {% include 'TacticsAdminBundle:Default:flash_messages.html.twig' %}
+                      {{ apy_breadcrumb_trail_render() }}
+                      {{ tactics_trail_render() }}
+                      {% block content %}
+                      {% endblock content %}
+                </div> <!-- /span9 -->
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /content -->
 
 
-{% block top_menu %}
-  {% render 'TacticsAdminBundle:Default:menu' with { 'top' : true  } %}
-{% endblock %}
+    <div id="footer">
+        <div class="container">
+            <hr>
+            <p>&copy; {{ 'now'|date('Y') }} Tactics bvba</p>
+        </div> <!-- /container -->
+    </div> <!-- /footer -->
 
-
-
-<div id="content">
-
-  <div class="container">
-
-    <div class="row">
-
-      {% block side_menu %}
-        <div class="span12">
+      {% block javascripts %}
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="{{ asset('/bundles/tacticsadmin/js/jquery-1.8.0.min.js') }}"></script>
+        <script src="{{ asset('/bundles/tacticsadmin/js/excanvas.min.js') }}"></script>
+        <script src="{{ asset('/bundles/tacticsadmin/js/bootstrap.js') }}"></script>
       {% endblock %}
 
-        {% include 'TacticsAdminBundle:Default:flash_messages.html.twig' %}
-
-        {{ apy_breadcrumb_trail_render() }}
-        {{ tactics_trail_render() }}
-
-        {% block content %}
-
-        {% endblock content %}
-
-
-      </div> <!-- /span9 -->
-
-    </div> <!-- /row -->
-
-  </div> <!-- /container -->
-
-</div> <!-- /content -->
-
-
-<div id="footer">
-	<div class="container">
-		<hr>
-		<p>&copy; 2012 Tactics bvba</p>
-	</div> <!-- /container -->
-</div> <!-- /footer -->
-
-  {% block javascripts %}
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ asset('/bundles/tacticsadmin/js/jquery-1.8.0.min.js') }}"></script>
-    <script src="{{ asset('/bundles/tacticsadmin/js/excanvas.min.js') }}"></script>
-    <script src="{{ asset('/bundles/tacticsadmin/js/bootstrap.js') }}"></script>
-  {% endblock %}
-
-  </body>
+    </body>
 </html>
