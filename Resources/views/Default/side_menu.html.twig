@@ -29,7 +29,7 @@
                     {% for action in actions %}
 
                       <li>
-                        <a href="{{ path( action.route ) }}">
+                        <a href="{{ path( action.route, action.params|default([]) ) }}">
                           {% if action.icon is defined %}<i class="{{ action.icon }}"></i>{% endif %}{{ action.label }}
                         </a>
                       </li>
