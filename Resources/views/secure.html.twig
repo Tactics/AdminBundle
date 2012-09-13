@@ -60,6 +60,7 @@
 
               <li>
                 <a href="{{ path( 'person_show', {id: app.user.id }) }}">Profile</a>
+<<<<<<< Updated upstream
               </li>
 
               <li>
@@ -77,6 +78,19 @@
               <li class="divider"></li>
 
               <li>
+=======
+            </li>
+            <li>
+                <a href="{{ path( 'person_profile_detail', {id: app.user.id}) }}">Profile analysis</a>
+            </li> <li>
+                <a href="{{ path( 'config_personal_edit', {type: "tactics.config.form.personal_sample"} )}}">Settings</a>
+            </li>
+            <li>
+                <a href="{{ path('training_need') }}">Training need</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+>>>>>>> Stashed changes
                 <a href="{{ path('logout') }}"><i class="icon-off"></i> Logout</a>
               </li>
 
