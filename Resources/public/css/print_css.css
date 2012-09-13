@@ -1,0 +1,41 @@
+/* 
+    Document   : print_css
+    Created on : 12-sep-2012, 9:30:14
+    Author     : Jeroen
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.navbar, 
+.navbar-inner,
+.subnav,
+.breadcrumb,
+.page-title,
+#footer,
+.accordion,
+#filter{
+    display: none;
+}
+
+#chart_div {
+    width: 100%;
+    color : black;
+}
+
+#content {
+    margin: 0;
+    padding: 0;
+    height : auto;
+    width: auto;
+}
+.widget , 
+.row > .span12 ,
+.container {
+    width: auto;
+}
+
+.row {
+    margin: 10px;
+}
+.widget-content {
+    padding: 10px;
+}
