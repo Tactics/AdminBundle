@@ -38,6 +38,15 @@ class DefaultController extends Controller
         'menu' => $menu
       ));
     }
+
+    public function subnavAction()
+    {
+        $menu = $this->container->getParameter('tactics_menu');
+
+        return $this->render('TacticsAdminBundle:Default:subnav.html.twig', array(
+            'menu' => $menu
+        ));
+    }
     
     /**
      * Maakt een acties dropdown adhv doorgegeven array. Als acties leeg is wordt
