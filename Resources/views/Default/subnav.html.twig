@@ -1,0 +1,63 @@
+{#<div class="subnav subnav-fixed nav-collapse">
+    {% for module_group_name, modules in menu %}
+        <ul class="nav nav-pills" id="subnav-{{ module_group_name }}">
+            {% for module_name, module in modules %}
+                {% if module.route is defined %}
+                    <li>
+                      <a href="{{ path( module.route,
+                      module.params|default([])) }}">
+                        {% if module.icon is defined %}<i class="{{ module.icon }}"></i>{% endif %}{{ module_name }}
+                      </a>
+                    </li>
+                {% else %}
+                    {% set index = loop.index %}
+                    {% set actions = module.actions %}
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1">
+                         {% if module.icon is defined %}<i class="{{
+                         module.icon }}"></i>{% endif %} {{ module_name }}
+                        </a> 
+                        <ul class="dropdown-menu">
+                            {% for action in actions %}
+                                <li>
+                                    <a href="{{ path(action.route, action.params|default([])) }}">
+                                        {% if action.icon is defined %}
+                                            <i class="{{ action.icon }}"></i>
+                                        {% endif %}
+                                        {{ action.label }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>#}
+
+<div class="subnav subnav-fixed nav-collapse">
+    {% for module_group_name, modules in menu %}
+        <ul class="nav nav-pills">
+            {% if module.route is defined %}
+                <li>
+                    <a href="{{ path( module.route, module.params|default([])) }}">
+                        {% if module.icon is defined %}
+                            <i class="{{ module.icon }}"></i>
+                        {% endif %}{{ module_name }}
+                    </a>
+                </li>
+            {% else %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Foo
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>Bar</li>
+                        <li>Baz</li>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    {% endfor %}
+</div>
