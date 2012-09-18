@@ -1,4 +1,0 @@
-TacticsAdminBundle_dashboard:
-    pattern:  /
-    defaults: { _controller: TacticsPersoonBundle:Default:dashboard }
-
