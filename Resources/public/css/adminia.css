@@ -91,6 +91,17 @@ select, input[type="file"] {
     line-height: 24px;
 }
 
+/* tactics */
+#ribbon {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10000;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+}
 
 /*------------------------------------------------------------------
 [2. Navbar / .navbar]
