@@ -29,7 +29,7 @@ body {
 	/* tactics // font: 13px/1.7em 'Open Sans', arial, sans-serif; */
     /* tactics */ font-family: 'Open Sans', arial, sans-serif;
 	
-	background: url(../img/body-bg.png) repeat 0 0;
+	background: url(../bundles/tacticsadmin/img/body-bg.png) repeat 0 0;
 }
 
 p {	
@@ -203,8 +203,11 @@ select, input[type="file"] {
 */
 
 #content {	
-	/* tactics padding-top: 100px; */
+	/* tactics */
+    /* original: padding-top: 100px; */
     padding-top: 95px;
+    /* tactics temp (till subnav is back up) */
+    padding-top: 55px;
 }
 
 
