@@ -103,6 +103,14 @@ select, input[type="file"] {
     filter: alpha(opacity=65);
 }
 
+/* tactics */
+#breadcrumbAjaxIndicator {
+    position: absolute; 
+    display: none; 
+    margin-left:1px; 
+    margin-top:1px;    
+}
+
 /*------------------------------------------------------------------
 [2. Navbar / .navbar]
 */
