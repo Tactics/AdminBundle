@@ -67,6 +67,12 @@ input {
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
 }
 
+/* tactics */
+a.disabled {
+    color: #888;
+    cursor: not-allowed;
+}
+
 /* tactics */ 
 [class^="icon-"], [class*=" icon-"] {
     background-image: none;
