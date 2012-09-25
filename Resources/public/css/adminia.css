@@ -29,7 +29,7 @@ body {
 	/* tactics // font: 13px/1.7em 'Open Sans', arial, sans-serif; */
     /* tactics */ font-family: 'Open Sans', arial, sans-serif;
 	
-	background: url(../img/body-bg.png) repeat 0 0;
+	background: url(../bundles/tacticsadmin/img/body-bg.png) repeat 0 0;
 }
 
 p {	
@@ -67,6 +67,12 @@ input {
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
 }
 
+/* tactics */
+a.disabled {
+    color: #888;
+    cursor: not-allowed;
+}
+
 /* tactics */ 
 [class^="icon-"], [class*=" icon-"] {
     background-image: none;
@@ -101,6 +107,14 @@ select, input[type="file"] {
     z-index: 10000;
     opacity: 0.65;
     filter: alpha(opacity=65);
+}
+
+/* tactics */
+#breadcrumbAjaxIndicator {
+    position: absolute; 
+    display: none; 
+    margin-left:1px; 
+    margin-top:1px;    
 }
 
 /*------------------------------------------------------------------
@@ -195,8 +209,11 @@ select, input[type="file"] {
 */
 
 #content {	
-	/* tactics padding-top: 100px; */
+	/* tactics */
+    /* original: padding-top: 100px; */
     padding-top: 95px;
+    /* tactics temp (till subnav is back up) */
+    padding-top: 55px;
 }
 
 

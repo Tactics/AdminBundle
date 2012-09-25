@@ -1,10 +1,10 @@
   {% if show.hasFields %}
-  
+
     {% if show.hasFieldsAtPosition('top') %}
-    
+
       <table class="table table-condensed {{spanwidth}}">
         <tbody>
-          
+
           {% for field in show.getFields('top') %}
             <tr>
               <th class="span2">
@@ -15,17 +15,17 @@
               </td>
             </tr>
           {% endfor %}
-          
+
         </tbody>
       </table>
-  
+
     {% endif %}
-  
+
     {% if show.hasFieldsAtPosition('left') %}
-    
+
       <table class="table table-condensed {{ show.hasFieldsAtPosition('right') ? 'span6' : spanwidth }}">
         <tbody>
-          
+
           {% for field in show.getFields('left') %}
             <tr>
               <th class="span2">
@@ -36,17 +36,17 @@
               </td>
             </tr>
           {% endfor %}
-          
+
         </tbody>
       </table>
-  
+
     {% endif %}
 
     {% if show.hasFieldsAtPosition('right') %}
-  
+
       <table class="table table-condensed {{ show.hasFieldsAtPosition('left') ? 'span5' : spanwidth }}">
         <tbody>
-          
+
           {% for field in show.getFields('right') %}
             <tr>
               <th class="span2">
@@ -57,17 +57,17 @@
               </td>
             </tr>
           {% endfor %}
-          
+
         </tbody>
       </table>
-  
+
     {% endif %}
-  
+
     {% if show.hasFieldsAtPosition('bottom') %}
-    
+
       <table class="table table-condensed {{spanwidth}}">
         <tbody>
-          
+
           {% for field in show.getFields('bottom') %}
             <tr>
               <th class="span2">
@@ -78,19 +78,19 @@
               </td>
             </tr>
           {% endfor %}
-          
+
         </tbody>
       </table>
-  
-    {% endif %}  
-  
+
+    {% endif %}
+
   {% endif %}
-  
+
   {% if show.hasHiddenFields %}
-  
+
   <div class="row">
     <div class="span12 collapse" id="hiddenfields">
-      
+
       {% if show.hasFieldsAtPosition('top', true) %}
 
         <table class="table collapse table-condensed {{spanwidth}}">
@@ -111,7 +111,7 @@
         </table>
 
       {% endif %}
-      
+
       {% if show.hasFieldsAtPosition('left', true) %}
 
         <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('right', true)  ? 'span6' : spanwidth }}">
@@ -153,7 +153,7 @@
         </table>
 
       {% endif %}
-      
+
       {% if show.hasFieldsAtPosition('bottom', true) %}
 
         <table class="table collapse table-condensed {{spanwidth}}">
@@ -173,15 +173,15 @@
           </tbody>
         </table>
 
-      {% endif %}      
+      {% endif %}
 
     </div>
-      </div>
+  </div>
 
     <div class="span12">
-      <a href="#" data-toggle="collapse" data-target="#hiddenfields">
-        Toon meer
+      <a id="toon_meer" href="#" data-status="inactive" data-active-text="{{ show.dataActiveText }}" data-inactive-text="{{ show.dataInactiveText }}" data-toggle="collapse" data-target="#hiddenfields">
+        {{ show.dataInactiveText }}
       </a>
     </div>
-  
+
   {% endif %}

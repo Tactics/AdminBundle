@@ -38,8 +38,12 @@
             <div class="row">
                   <div class="span12">
                       {% include 'TacticsAdminBundle:Default:flash_messages.html.twig' %}
-                      {{ apy_breadcrumb_trail_render() }}
-                      {{ tactics_trail_render() }}
+                      
+                      <div id="breadcrumbAjaxIndicator" class="ajaxIndicator"><img src="{{asset('/bundles/tacticsadmin/images/ajax-indicator.gif')}}"></div>
+                      
+                      {% block breadcrumb %}
+                          {{ apy_breadcrumb_trail_render() }}                          
+                      {%endblock %}
                       {% block content %}
                       {% endblock content %}
                 </div> <!-- /span9 -->

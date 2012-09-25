@@ -37,16 +37,27 @@ class Show {
   protected $right_hidden_fields = array();
   protected $bottom_fields = array();
   protected $bottom_hidden_fields = array();
-  
-  protected $spanwidth = 'span11';
 
-  public function __construct($object, ContainerInterface $container, $options = null)
+  protected $spanwidth = 'span11';
+  protected $dataActiveText = null;
+  protected $dataInactiveText = null;
+
+  public function __construct($object, ContainerInterface $container, $options = array())
   {
     $this->setObject($object);
     $this->setObjectPeer();
     $this->setContainer($container);
+
     if (isset ($options['spanwidth'])) {
         $this->setSpanWidth($options['spanwidth']);
+    }
+
+    if (isset($options['active-text'])) {
+        $this->setDataActiveText($options['active-text']);
+    }
+
+    if (isset($options['inactive-text'])) {
+        $this->setDataInactiveText($options['inactive-text']);
     }
   }
 
@@ -695,27 +706,61 @@ class Show {
   {
     return in_array($field_name, $this->getObjectPeer()->getFieldNames(BasePeer::TYPE_COLNAME)) ? true : false;
   }
-  
+
   /**
-   * Sets the span attribute 
-   * 
-   * @param String $spanwidth a span class 
+   * Sets the span attribute
+   *
+   * @param String $spanwidth a span class
    */
-  
   private function setSpanWidth($spanwidth)
   {
       $this->spanwidth = $spanwidth;
   }
-  
+
   /**
-   * Gets the span attribute 
-   * 
-   * @return String $spanwidth a span class 
+   * Gets the span attribute
+   *
+   * @return String $spanwidth a span class
    */
-  
   private function getSpanWidth()
   {
       return $this->spanwidth;
+  }
+
+  /**
+   * Returns the text that should be displayed when all fields are active
+   *
+   * @return String
+   */
+  public function getDataActiveText() {
+      return $this->dataActiveText ? $this->dataActiveText : 'Toon minder';
+  }
+
+  /**
+   * Sets the text that should be desplayed when all fields are active
+   *
+   * @param String $dataActiveText
+   */
+  public function setDataActiveText($dataActiveText) {
+      $this->dataActiveText = $dataActiveText;
+  }
+
+  /**
+   * Returns the text that should be displayed when all fields are inactive
+   *
+   * @return String
+   */
+  public function getDataInactiveText() {
+      return $this->dataInactiveText ? $this->dataInactiveText : 'Toon meer';
+  }
+
+  /**
+   * Sets the text that should be desplayed when all fields are active
+   *
+   * @param String $dataActiveText
+   */
+  public function setDataInactiveText($dataInactiveText) {
+      $this->dataInactiveText = $dataInactiveText;
   }
 }
 

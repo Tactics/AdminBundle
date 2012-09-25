@@ -7,19 +7,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         {% block stylesheets %}
-            <link href="{{ asset('/bundles/tacticsadmin/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
             <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-            <link href="{{ asset('/bundles/tacticsadmin/css/font-awesome.css') }}" type="text/css" rel="stylesheet">
-            <link href="{{ asset('/bundles/tacticsadmin/css/adminia.css') }}" type="text/css" rel="stylesheet">
-            <link href="{{ asset('/bundles/tacticsadmin/css/pages/login.css') }}" type="text/css" rel="stylesheet">
-            <link href="{{ asset('/bundles/tacticsadmin/css/adminia-responsive.css') }}" type="text/css" rel="stylesheet">
-            <link href="{{ asset('/bundles/tacticsadmin/css/pages/dashboard.css') }}" type="text/css" rel="stylesheet">
-            <link href="{{ asset('/bundles/tacticsadmin/css/print_css.css')}}" type="text/css" rel="stylesheet" media="print" />
-
-            <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-            <!--[if lt IE 9]>
-              <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-            <![endif]-->
+            {% stylesheets
+                '@TacticsAdminBundle/Resources/public/css/bootstrap.min.css'
+                '@TacticsAdminBundle/Resources/public/css/font-awesome.css'
+                '@TacticsAdminBundle/Resources/public/css/adminia.css'
+                '@TacticsAdminBundle/Resources/public/css/adminia-responsive.css'
+                '@TacticsAdminBundle/Resources/public/css/pages/login.css'
+                '@TacticsAdminBundle/Resources/public/css/pages/dashboard.css'
+            %}
+            <link href='{{ asset_url }}' type='text/css' rel="stylesheet"></script>
+            {% endstylesheets %}
+        
+            {% stylesheets
+                '@TacticsAdminBundle/Resources/public/css/print_css.css'
+            %}
+            <link href='{{ asset_url }}' type='text/css' rel="stylesheet" media="print"></script>
+            {% endstylesheets %}
         {% endblock %}
     </head>
     <body>
@@ -59,9 +63,22 @@
             <!-- Le javascript
             ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->
-            <script src="{{ asset('/bundles/tacticsadmin/js/jquery-1.8.0.min.js') }}"></script>
-            <script src="{{ asset('/bundles/tacticsadmin/js/excanvas.min.js') }}"></script>
-            <script src="{{ asset('/bundles/tacticsadmin/js/bootstrap.js') }}"></script>
+            
+            <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+              <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+            
+            {% javascripts
+                '@TacticsAdminBundle/Resources/public/js/jquery-1.8.0.min.js'
+                '@TacticsAdminBundle/Resources/public/js/excanvas.min.js'
+                '@TacticsAdminBundle/Resources/public/js/bootstrap.js'
+                '@TacticsAdminBundle/Resources/public/js/show.js'
+                '@TacticsAdminBundle/Resources/public/js/admin.js'
+            %}
+            <script src='{{ asset_url }}' type='text/javascript'></script>
+            
+            {% endjavascripts %}
         {% endblock %}
 
     </body>
