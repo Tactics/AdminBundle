@@ -63,6 +63,11 @@ hr {
 	border-top-color: #DDD;
 }
 
+/* tactics */
+form {
+    margin: 0;
+}
+
 input {
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
 }
