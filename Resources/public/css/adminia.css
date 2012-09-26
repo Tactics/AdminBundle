@@ -117,6 +117,21 @@ select, input[type="file"] {
     margin-top:1px;    
 }
 
+/* tactics */
+.widget.ajax-loading .widget-content
+{
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.widget.ajax-loading .widget-header h3
+{
+    background-image: url("/bundles/tacticsadmin/images/ajax-indicator-large.gif");
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+
 /*------------------------------------------------------------------
 [2. Navbar / .navbar]
 */
