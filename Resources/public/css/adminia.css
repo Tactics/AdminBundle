@@ -527,4 +527,6 @@ select, input[type="file"] {
   padding: 0 1px;
 }
 
-
+.dropdown-toggle{
+    vertical-align: top;
+}
