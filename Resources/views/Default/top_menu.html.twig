@@ -1,7 +1,7 @@
-<ul class="nav">
+<ul class="nav nav-pills" id="main_nav">
     {% for module_group_name, modules in menu %}
-            <li>
-                <a href="#subnav-{{ module_group_name }}">
+            <li class="dropdown">
+                <a class="dropdown-toggle" href="#subnav-{{ module_group_name }}">
                     {{ module_group_name }}
                 </a>
             </li>
