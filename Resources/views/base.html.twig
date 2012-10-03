@@ -19,7 +19,7 @@
             %}
             <link href='{{ asset_url }}' type='text/css' rel="stylesheet"></script>
             {% endstylesheets %}
-        
+
             {% stylesheets
                 '@TacticsAdminBundle/Resources/public/css/print_css.css'
             %}
@@ -36,10 +36,10 @@
                         {{title|default('Tactics admin')}}
                     {% endblock %}
                     </a>
-                    
+
                     {% block top_menu %}
                     {% endblock %}
-                    
+
                     <ul class="nav pull-right">
                         {% block personal_menu %}
                         {% endblock %}
@@ -47,12 +47,15 @@
                 </div> <!-- /container -->
             </div> <!-- /navbar-inner -->
         </div> <!-- /navbar -->
-        
+
+        {% block sub_nav %}
+        {% endblock %}
+
         <img src="{{ asset("/bundles/tacticsadmin/images/ribbon-development.gif") }}" id="ribbon" >
-                    
+
         {% block content_container %}
         {% endblock %}
-                    
+
         <div id="footer">
             <div class="container">
                 <hr>
@@ -64,23 +67,23 @@
             <!-- Le javascript
             ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->
-            
+
             <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
             <!--[if lt IE 9]>
               <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
             <![endif]-->
-            
+
             {% javascripts
                 '@TacticsAdminBundle/Resources/public/js/jquery-1.8.0.min.js'
                 '@TacticsAdminBundle/Resources/public/js/excanvas.min.js'
                 '@TacticsAdminBundle/Resources/public/js/bootstrap.js'
                 '@TacticsAdminBundle/Resources/public/js/show.js'
                 '@TacticsAdminBundle/Resources/public/js/admin.js'
+                '@TacticsAdminBundle/Resources/public/js/menu.js'
             %}
             <script src='{{ asset_url }}' type='text/javascript'></script>
-            
+
             {% endjavascripts %}
         {% endblock %}
-
     </body>
 </html>
