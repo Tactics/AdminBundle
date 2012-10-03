@@ -104,15 +104,49 @@ select, input[type="file"] {
 
 /* tactics */
 #ribbon {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 10000;
+    transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Safari and Chrome */
+    -o-transform: rotate(-45deg); /* Opera */
+    -moz-transform: rotate(-45deg); /* Firefox */    
+    background: none repeat scroll 0 0 orange;
+    border: 1px solid #AF7305;
+    border-top: 4px solid #AF7305;
+    bottom: 40px;
+    box-shadow: 0 0 7px 0 #888888;
+    font-size: 18px;
+    height: 25px;
+    line-height: 25px;
     opacity: 0.65;
-    filter: alpha(opacity=65);
+    padding: 0;
+    position: fixed;
+    right: -40px;
+    text-align: center;
+    width: 200px;
+    z-index: 6000001;
+    
+    /* default: hide */
+    display: none;
 }
+
+body.env-development #ribbon {
+    display: block;
+}
+
+body.env-development #ribbon:after {
+    content: "Development"
+}
+
+body.env-acceptance #ribbon {
+    display: block;
+    background-color: #AED4F4;
+    border-color: #1B78C5;
+}
+
+body.env-acceptance #ribbon:after {
+    content: "Acceptance"
+}
+
 
 /* tactics */
 #breadcrumbAjaxIndicator {

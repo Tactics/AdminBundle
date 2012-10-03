@@ -27,7 +27,7 @@
             {% endstylesheets %}
         {% endblock %}
     </head>
-    <body>
+    <body class="env-development">
         <div class="navbar navbar-fixed-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
@@ -51,7 +51,7 @@
         {% block sub_nav %}
         {% endblock %}
 
-        <img src="{{ asset("/bundles/tacticsadmin/images/ribbon-development.gif") }}" id="ribbon" >
+        <div id="ribbon"></div>
 
         {% block content_container %}
         {% endblock %}
