@@ -68,6 +68,11 @@ form {
     margin: 0;
 }
 
+/* tactics */
+.form-horizontal .control-group {
+    margin-bottom: 7px;
+}
+
 input {
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
 }
