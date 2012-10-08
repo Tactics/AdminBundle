@@ -12,7 +12,8 @@
 .page-title,
 #footer,
 .accordion,
-#filter{
+#filter,
+.filter{
     display: none;
 }
 
