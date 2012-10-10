@@ -5,6 +5,7 @@
     Description:
         Purpose of the stylesheet follows.
 */
+
 .navbar, 
 .navbar-inner,
 .subnav,
@@ -13,10 +14,15 @@
 #footer,
 .accordion,
 #filter,
-.filter{
-    display: none;
+.filter,
+.sf-toolbarreset,
+#ribbon{
+    display: none ! important;
 }
-
+.scrollpane {
+    overflow: visible;
+    width: 100%;
+}
 #chart_div {
     width: 100%;
     color : black;
