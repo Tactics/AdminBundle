@@ -1,7 +1,11 @@
 {% extends '::base.html.twig' %}
 
 {% block top_menu %}
-  {% render 'TacticsAdminBundle:Default:menu' with { 'top' : true  } %}
+    {% render 'TacticsAdminBundle:Default:menu' with { 'top' : true  } %}
+{% endblock %}
+
+{% block sub_nav %}
+    {% render 'TacticsAdminBundle:Default:subnav' %}
 {% endblock %}
 
 {% block personal_menu %}
@@ -18,7 +22,7 @@
                 <a href="{{ path( 'person_profile_detail', {id: app.user.id}) }}">Profile analysis</a>
             </li>
             <li>
-                <a href="{{ path( 'config_personal_edit', {type: "tactics.config.form.personal_sample"} )}}">Settings</a>
+                <a href="{{ path( 'config_personal_edit', {type: "tactics.config.form.personal"} )}}">Settings</a>
             </li>
             <li>
                 <a href="{{ path('training_need') }}">Training need</a>
@@ -31,18 +35,17 @@
     </li>
 {% endblock %}
 
-    
 {% block content_container %}
     <div id="content">
         <div class="container">
             <div class="row">
                   <div class="span12">
                       {% include 'TacticsAdminBundle:Default:flash_messages.html.twig' %}
-                      
+
                       <div id="breadcrumbAjaxIndicator" class="ajaxIndicator"><img src="{{asset('/bundles/tacticsadmin/images/ajax-indicator.gif')}}"></div>
-                      
+
                       {% block breadcrumb %}
-                          {{ apy_breadcrumb_trail_render() }}                          
+                          {{ apy_breadcrumb_trail_render() }}
                       {%endblock %}
                       {% block content %}
                       {% endblock content %}
