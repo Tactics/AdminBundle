@@ -679,7 +679,7 @@ class Show implements ContainerAwareInterface
      */
     private function isObjectField($field_name)
     {
-        return in_array($field_name, $this->getObjectPeer()->getFieldNames(BasePeer::TYPE_COLNAME)) ? true : false;
+        return in_array($field_name, $this->classMetaData->getColumnNames());
     }
 
     /**
