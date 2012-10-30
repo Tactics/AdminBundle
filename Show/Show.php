@@ -4,7 +4,6 @@ namespace Tactics\Bundle\AdminBundle\Show;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use \BasePeer;
 
 class Show implements ContainerAwareInterface
 {
