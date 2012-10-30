@@ -4,6 +4,7 @@ namespace Tactics\Bundle\AdminBundle\Show;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Doctrine\Common\Util\Inflector;
 
 class Show implements ContainerAwareInterface
 {
@@ -353,7 +354,7 @@ class Show implements ContainerAwareInterface
      */
     protected function getMethod($field_name)
     {
-        return lcfirst(str_replace(' ', '', ucwords('get'.ucfirst(str_replace('_', ' ', $field_name)))));
+        return 'get'.Inflector::camelize($field_name);
     }
 
     /**
