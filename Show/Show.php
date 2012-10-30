@@ -82,48 +82,38 @@ class Show implements ContainerAwareInterface
      */
     protected function createField($field, $field_type, $options)
     {
-        // Indien het veld niet bekend is, betreft het een custom veld
-        if (! $this->isObjectField($field)) {
-            // custum / veld teruggeven
-            return array(
-                'label' => (isset($options['field_label']) ? $options['field_label'] : ''),
-                'value' => $field
-            );
-        }
+        $associationMappings = $this->getClassMetaData()->getAssociationMappings();
+      
+        // When field is associated, retrieve associated object(s) and cast 
+        // them to string.
+        if (false !== array_key_exists($field, $associationMappings)) {
+            $method = $this->getMethod($field);
+            $targetEntity = $this->getObject()->$method();
 
-        // Indien het veld een foreign key is, halen we het object op en standaard weergave __toString
-        $relativeField = substr($field, strpos($field, '.')+1);
-        $foreignFields = $this->object_peer->getTableMap()->getForeignKeys();
-        if (isset($foreignFields[$relativeField])) {
-            // Opzoeken van kolom
-            $relatedColumn = $foreignFields[$relativeField]->getRelatedColumnName();
-            // Opzoeken van class
-            $relatedClassName = $foreignFields[$relativeField]->getRelation()->getForeignTable()->getClassname();
-            // Methode om gerelateerd object id op te halen:
-            $getRelatedMethod = $this->getMethod($field);
+            if ($targetEntity instanceof \Traversable) {
+                $values = array();
 
-            // Opzoeken van gerelateerd object
-            if ($this->getObject()->$getRelatedMethod()) {
-                $foreignObject =  eval('return ' . ucfirst($relatedClassName) . 'Query::create()->findPk(' . $this->getObject()->$getRelatedMethod() . ');');
+                foreach ($targetEntity as $entity) {
+                    $values[] = (string) $entity;
+                }
+
+                $value = $values ? implode(', ', $values) : ' - ';
+            } elseif ($targetEntity) {
+                $value = (string) $targetEntity;
             } else {
-                $foreignObject = null;
+                $value = '';
             }
 
-            // Default waarde
-            if ($foreignObject) {
-                $value  = $foreignObject->__toString();
-            } else {
-                $value = '-';
-            }
-            // Standaard label overschrijven (bv. PERSOON IPV PERSOON ID)
+            // Generate label if not specified.
             if (! isset($options['field_label'])) {
-                $options['field_label'] = ucfirst($foreignFields[$relativeField]->getRelatedTableName());
+                $options['field_label'] = ucfirst($field);
             }
-        } else {
-            // Eerste methode maken om waarde op te halen.
-            $getMethod = $this->getMethod($field);
-            // Waarde ophalen:
-            $value = $this->getObject()->$getMethod();
+        } elseif ($this->getClassMetaData()->hasField($field)) { // Entity field
+            $method = $this->getMethod($field);
+            $value = $this->getObject()->$method();
+        } else { // Custom field.
+            $value = isset($options['value']) ? $options['value'] : '';
+            $field_label = isset($options['field_label']) ? $options['field_label'] : '';
         }
 
         if (isset($options['modifier'])) {
@@ -207,9 +197,7 @@ class Show implements ContainerAwareInterface
      */
     protected function formatFieldname($field_name)
     {
-        $formatted = str_replace('_', ' ', $this->getObjectPeer()->translateFieldname($field_name, \BasePeer::TYPE_COLNAME, \BasePeer::TYPE_FIELDNAME));
-
-        return ucfirst($formatted);
+        return ucfirst(str_replace('_', ' ', $field_name));
     }
 
     /**
@@ -366,9 +354,7 @@ class Show implements ContainerAwareInterface
      */
     protected function getMethod($field_name)
     {
-        $method = str_replace('_', ' ', $this->getObjectPeer()->translateFieldname($field_name, \BasePeer::TYPE_COLNAME, \BasePeer::TYPE_PHPNAME));
-
-        return 'get' . ucfirst($method);
+        return lcfirst(str_replace(' ', '', ucwords('get'.ucfirst(str_replace('_', ' ', $field_name)))));
     }
 
     /**
@@ -389,26 +375,6 @@ class Show implements ContainerAwareInterface
     public function getObject()
     {
         return $this->object;
-    }
-
-    /**
-     * Zet de peer klasse van het object.
-     */
-    public function setObjectPeer()
-    {
-        $peer_naam = get_class($this->getObject()) . 'Peer';
-
-        $this->object_peer = new $peer_naam();
-    }
-
-    /**
-     * Geeft de peer klasse van het object terug.
-     *
-     * @return type
-     */
-    public function getObjectPeer()
-    {
-        return $this->object_peer;
     }
 
     /**
@@ -670,16 +636,6 @@ class Show implements ContainerAwareInterface
                 'spanwidth' => $this->getSpanWidth()
             )
         );
-    }
-
-    /**
-     * Controleert of dit veld een objectveld is, zoniet, betreft het een custom veld
-     *
-     * @return Boolean TRUE/FALSE
-     */
-    private function isObjectField($field_name)
-    {
-        return in_array($field_name, $this->classMetaData->getColumnNames());
     }
 
     /**
