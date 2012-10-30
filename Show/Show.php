@@ -22,7 +22,7 @@ class Show implements ContainerAwareInterface
     const CASE_UCWORDS = 'ucwords';
 
     protected $object = null;
-    protected $object_peer = null;
+    protected $classMetaData = null;
 
     protected $container = null;
 
@@ -49,8 +49,15 @@ class Show implements ContainerAwareInterface
     public function __construct($object, ContainerInterface $container, $options = array())
     {
         $this->setObject($object);
-        $this->setObjectPeer();
         $this->setContainer($container);
+
+        if (!$this->getContainer()->has('doctrine')) {
+            throw new \LogicException('The DoctrineBundle is not registered in your application.');
+        }
+
+        $doctrine = $this->getContainer()->get('doctrine');
+        $cmf = $doctrine->getManager()->getMetaDataFactory();
+        $this->classMetaData = $cmf->getMetaDataFor(get_class($object));
 
         if (isset ($options['spanwidth'])) {
             $this->setSpanWidth($options['spanwidth']);
@@ -421,23 +428,27 @@ class Show implements ContainerAwareInterface
     }
 
     /**
-     * Zet de container voor dit object.
-     *
-     * @param ContainerInterface $container
+     * {@inheritdoc}
      */
-    public function setContainer($container)
+    public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
 
     /**
-     * Geeft de container terug
-     *
-     * @return ContainerInterface
+     * {@inheritdoc}
      */
     public function getContainer()
     {
         return $this->container;
+    }
+
+    /**
+     * @return ClassMetaData, The ClassMetaData for object.
+     */
+    public function getClassMetaData()
+    {
+        return $this->classMetaData;
     }
 
     /**
