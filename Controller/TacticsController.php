@@ -30,9 +30,16 @@ class TacticsController extends Controller
      *
      * @return $pager Pagerfanta\Pagerfanta A Pagerfanta instance.
      */
-    public function getPager($qb)
+    public function getPager($qb, $key = null, $maxPerPage = null)
     {
+        $options = array();
+
+        if ($maxPerPage) {
+            $options['max_per_page'] = $maxPerPage;
+        }
+
         $qbp = new QueryBuilderPager($this->container);
-        return $qbp->execute($qb);
+
+        return $qbp->execute($qb, $key, $options);
     }
 }
