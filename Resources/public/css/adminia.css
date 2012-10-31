@@ -26,9 +26,10 @@
 [1. Global]
 */
 body {	
-	font: 13px/1.7em 'Open Sans', arial, sans-serif;
+	/* tactics // font: 13px/1.7em 'Open Sans', arial, sans-serif; */
+    /* tactics */ font-family: 'Open Sans', arial, sans-serif;
 	
-	background: url(../img/body-bg.png) repeat 0 0;
+	background: url(../bundles/tacticsadmin/img/body-bg.png) repeat 0 0;
 }
 
 p {	
@@ -62,12 +63,116 @@ hr {
 	border-top-color: #DDD;
 }
 
+/* tactics */
+form {
+    margin: 0;
+}
+
+/* tactics */
+.form-horizontal .control-group {
+    margin-bottom: 7px;
+}
+
 input {
 	font: 13px/1.7em 'Open Sans', arial, sans-serif;
 }
 
+/* tactics */
+a.disabled {
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* tactics */ 
 [class^="icon-"], [class*=" icon-"] {
     background-image: none;
+}
+
+/* tactics */
+.breadcrumb {
+    background-color: none;
+    border-radius: 2px 2px 2px 2px;
+    margin: 0 0 8px;
+    padding: 2px 15px;
+}
+
+/* tactics */
+.form-actions {
+    background-color: #FCFCFC;
+}
+
+/* tactics */
+select, input[type="file"] {
+    height: 24px;
+    line-height: 24px;
+}
+
+/* tactics */
+#ribbon {
+    transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Safari and Chrome */
+    -o-transform: rotate(-45deg); /* Opera */
+    -moz-transform: rotate(-45deg); /* Firefox */    
+    background: none repeat scroll 0 0 orange;
+    border: 1px solid #AF7305;
+    border-top: 4px solid #AF7305;
+    bottom: 40px;
+    box-shadow: 0 0 7px 0 #888888;
+    font-size: 18px;
+    height: 25px;
+    line-height: 25px;
+    opacity: 0.65;
+    padding: 0;
+    position: fixed;
+    right: -40px;
+    text-align: center;
+    width: 200px;
+    z-index: 6000001;
+    
+    /* default: hide */
+    display: none;
+}
+
+body.env-development #ribbon {
+    display: block;
+}
+
+body.env-development #ribbon:after {
+    content: "Development"
+}
+
+body.env-acceptance #ribbon {
+    display: block;
+    background-color: #AED4F4;
+    border-color: #1B78C5;
+}
+
+body.env-acceptance #ribbon:after {
+    content: "Acceptance"
+}
+
+
+/* tactics */
+#breadcrumbAjaxIndicator {
+    position: absolute; 
+    display: none; 
+    margin-left:1px; 
+    margin-top:1px;    
+}
+
+/* tactics */
+.widget.ajax-loading .widget-content
+{
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.widget.ajax-loading .widget-header h3
+{
+    background-image: url("/bundles/tacticsadmin/images/ajax-indicator-large.gif");
+    background-repeat: no-repeat;
+    padding-left: 30px;
 }
 
 
@@ -163,7 +268,11 @@ input {
 */
 
 #content {	
-	padding-top: 100px;
+	/* tactics */
+    /* original: padding-top: 100px; */
+    padding-top: 95px;
+    /* tactics temp (till subnav is back up) */
+    padding-top: 55px;
 }
 
 
@@ -195,8 +304,11 @@ input {
 	
 	position: relative;
 	
+    /* tactics 
 	height: 40px;
-	line-height: 40px;
+	line-height: 40px; */
+	height: 34px;
+	line-height: 34px;
 	
 	background: #E9E9E9;
 	background:-moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%); /* FF3.6+ */
@@ -458,6 +570,7 @@ input {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#eeeeee',GradientType=0 );
     background-image: linear-gradient(top, whiteSmoke 0%,#EEE 100%);
     border: 1px solid #E5E5E5;
+    padding-top: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -469,4 +582,6 @@ input {
   padding: 0 1px;
 }
 
-
+.dropdown-toggle{
+    vertical-align: top;
+}

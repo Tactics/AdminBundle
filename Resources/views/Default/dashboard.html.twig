@@ -1,12 +1,7 @@
-{% extends 'TacticsAdminBundle::secure.html.twig' %}
+{% extends '::secure.html.twig' %}
 
-{% block side_menu %}
-  {% render 'TacticsAdminBundle:Default:menu' with { 'top': false } %}
-
-  <div class="span9">
-{% endblock %}
-      
 {% block top_menu %}
+  {% render 'TacticsAdminBundle:Default:menu' with { 'top' : true  } %}
 {% endblock %}
 
 {% block content %}
