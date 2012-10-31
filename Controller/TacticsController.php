@@ -4,7 +4,7 @@ namespace Tactics\Bundle\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\QueryBuilder;
-use Tactics\Bundle\AdminBundle\QueryBuilderFilter\QueryBuilderPager;
+use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderPager;
 
 class TacticsController extends Controller
 {
@@ -30,7 +30,7 @@ class TacticsController extends Controller
      *
      * @return $pager Pagerfanta\Pagerfanta A Pagerfanta instance.
      */
-    public function getPager($qb, $key = null, $maxPerPage = null)
+    public function getPager(QueryBuilder $qb, $key = null, $maxPerPage = null)
     {
         $options = array();
 
