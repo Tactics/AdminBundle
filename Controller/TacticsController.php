@@ -5,6 +5,7 @@ namespace Tactics\Bundle\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\QueryBuilder;
 use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderPager;
+use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderSorter;
 
 class TacticsController extends Controller
 {
@@ -41,5 +42,15 @@ class TacticsController extends Controller
         $qbp = new QueryBuilderPager($this->container);
 
         return $qbp->execute($qb, $key, $options);
+    }
+
+    /**
+     * @return QueryBuilder QueryBuilder instance with added orderByClause.
+     */
+    public function sortQuery(QueryBuilder $qb, $key = null, $options = array())
+    {
+        $sorter = new QueryBuilderSorter($this->container);
+
+        return $sorter->execute($qb, $key, $options);
     }
 }
