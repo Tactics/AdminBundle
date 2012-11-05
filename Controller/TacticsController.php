@@ -2,6 +2,8 @@
 
 namespace Tactics\Bundle\AdminBundle\Controller;
 
+use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderFilter;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TacticsController extends Controller
@@ -32,4 +34,20 @@ class TacticsController extends Controller
     {
         return $this->container->get('tactics.table.factory')->createBuilder($type, $options);
     }
+    
+    /**
+     * Creates and returns a QueryBuilderFilter instance
+     *
+     * @param QueryBuilderFilterTypeInterface  $filterType
+     *
+     * @return QueryBuilderFilter
+     */
+    public function createFilter($type, array $options = array())
+    {
+        $filter = new QueryBuilderFilter($this->container);
+        $filter->buildFromType($type);
+        
+        return $filter;
+    }
+    
 }
