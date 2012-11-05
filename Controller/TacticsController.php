@@ -18,5 +18,18 @@ class TacticsController extends Controller
             $notice = ($type ? $type : 'Object') . ' not found.';
             throw $this->createNotFoundException($notice);
         }
-    }  
+    }
+
+    /**
+     * Creates and returns a table builder instance
+     *
+     * @param mixed $data    The initial data for the form
+     * @param array $options Options for the form
+     *
+     * @return FormBuilder
+     */
+    public function createTableBuilder($type, array $options = array())
+    {
+        return $this->container->get('tactics.table.factory')->createBuilder($type, $options);
+    }
 }
