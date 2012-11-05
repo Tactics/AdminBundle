@@ -41,7 +41,7 @@ class UpdaterLoggableListener implements EventSubscriber
         
         // user moet ingelogd zijn en een id hebben
         if (!is_object($user) || !method_exists($user, 'getId')) {
-            exit();
+            return;
         }       
         
         $annotationReader = $this->getAnnotationReader();
@@ -75,7 +75,7 @@ class UpdaterLoggableListener implements EventSubscriber
         
         // user moet ingelogd zijn en een id hebben
         if (!is_object($user) || !method_exists($user, 'getId')) {
-            exit();
+            return;
         }       
         
         $annotationReader = $this->getAnnotationReader();
