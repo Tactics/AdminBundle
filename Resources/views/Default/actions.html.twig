@@ -1,0 +1,18 @@
+<div class="btn-toolbar pull-right acties">
+    <div class="btn-group">
+        {% if menu is not defined %}
+            <a class="btn disabled" data-toggle="dropdown">
+                Actions
+                &nbsp; <span class="caret"></span>
+            </a>
+        {% else %}
+            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                Actions
+                &nbsp; <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                {{ block('actions') }}
+            </ul>
+        {% endif %}
+    </div>
+</div>
