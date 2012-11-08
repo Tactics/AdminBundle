@@ -2,10 +2,9 @@
 
 namespace Tactics\Bundle\AdminBundle\Controller;
 
+use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderFilter;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\QueryBuilder;
-use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderPager;
-use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderSorter;
 
 class TacticsController extends Controller
 {
@@ -24,33 +23,31 @@ class TacticsController extends Controller
     }
 
     /**
-     * @todo I'm not sure whether or not I like this yet.
-     * This makes the AdminBundle and TableBundle not so loosely coupled. 
-     * Then again, I think AdminBundle and TableBundle will always be used 
-     * together.
+     * Creates and returns a table builder instance
      *
-     * @return $pager Pagerfanta\Pagerfanta A Pagerfanta instance.
+     * @param mixed $data    The initial data for the form
+     * @param array $options Options for the form
+     *
+     * @return FormBuilder
      */
-    public function getPager(QueryBuilder $qb, $key = null, $maxPerPage = null)
+    public function createTableBuilder($type, array $options = array())
     {
-        $options = array();
-
-        if ($maxPerPage) {
-            $options['max_per_page'] = $maxPerPage;
-        }
-
-        $qbp = new QueryBuilderPager($this->container);
-
-        return $qbp->execute($qb, $key, $options);
+        return $this->container->get('tactics.table.factory')->createBuilder($type, $options);
     }
-
+    
     /**
-     * @return QueryBuilder QueryBuilder instance with added orderByClause.
+     * Creates and returns a QueryBuilderFilter instance
+     *
+     * @param QueryBuilderFilterTypeInterface  $filterType
+     *
+     * @return QueryBuilderFilter
      */
-    public function sortQuery(QueryBuilder $qb, $key = null, $options = array())
+    public function createFilter($type, array $options = array())
     {
-        $sorter = new QueryBuilderSorter($this->container);
-
-        return $sorter->execute($qb, $key, $options);
+        $filter = new QueryBuilderFilter($this->container);
+        $filter->buildFromType($type);
+        
+        return $filter;
     }
+    
 }
