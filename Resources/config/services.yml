@@ -10,3 +10,5 @@ services:
             - @service_container
         tags: 
             - { name: doctrine.event_subscriber }
+    tactics.entity_namer:
+        class: Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer         
