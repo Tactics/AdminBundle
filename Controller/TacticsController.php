@@ -54,27 +54,33 @@ class TacticsController extends Controller
      * Creates or retrieves an entity.
      *
      * @param Doctrine\ORM\EntityRepository $entityRepository
-     * @param string $breadcrumbRouteName
      * @param int $id
+     * @param string $breadcrumbRouteName
      * @return Object A doctrine entity.
      */
-    public function findOrCreateEntity($entityRepository, $breadcrumbRouteName, $id)
+    public function findOrCreateEntity($entityRepository, $id, $breadcrumbRouteName = null)
     {
-        $breadcrumb = $this->get('apy_breadcrumb_trail');
+        if ($breadcrumbRouteName) {
+            $breadcrumb = $this->get('apy_breadcrumb_trail');
+        }
 
         if ($id) {
             $entity = $entityRepository->find($id);
             $this->createExceptionIfNotFound($entity);
 
-            $breadcrumb->add((string) $entity, $breadcrumbRouteName, array(
-                'id' => $id
-            ))
-            ->add('Edit');
+            if ($breadcrumbRouteName) {
+                $breadcrumb->add((string) $entity, $breadcrumbRouteName, array(
+                    'id' => $id
+                ))
+                ->add('Edit');
+            }
         } else {
             $className = $entityRepository->getClassName();
             $entity = new $className();
 
-            $breadcrumb->add('New');
+            if ($breadcrumbRouteName) {
+                $breadcrumb->add('New');
+            }
         }
 
         return $entity;
