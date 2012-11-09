@@ -49,5 +49,55 @@ class TacticsController extends Controller
         
         return $filter;
     }
-    
+
+    /**
+     * Creates or retrieves an entity.
+     *
+     * @param Doctrine\ORM\EntityRepository $entityRepository
+     * @param string $breadcrumbRouteName
+     * @param int $id
+     * @return Object A doctrine entity.
+     */
+    public function findOrCreateEntity($entityRepository, $breadcrumbRouteName, $id)
+    {
+        $breadcrumb = $this->get('apy_breadcrumb_trail');
+
+        if ($id) {
+            $entity = $entityRepository->find($id);
+            $this->createExceptionIfNotFound($entity);
+
+            $breadcrumb->add((string) $entity, $breadcrumbRouteName, array(
+                'id' => $id
+            ))
+            ->add('Edit');
+        } else {
+            $className = $entityRepository->getClassName();
+            $entity = new $className();
+
+            $breadcrumb->add('New');
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Attempts to delete an entity.
+     *
+     * @param Doctrine\ORM\EntityRepository $entityRepository
+     * @param int $id
+     */
+    public function deleteEntity($entityRepository, $id)
+    {
+        $entity = $entityRepository->find($id);
+        $this->createExceptionIfNotFound($entity);
+
+        if (! $entity->isDeletable()) {
+            $this->createNotFoundException();
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $em->remove($entity);
+        $em->flush();
+    }
 }
