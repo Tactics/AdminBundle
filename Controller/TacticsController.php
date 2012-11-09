@@ -106,4 +106,30 @@ class TacticsController extends Controller
         $em->remove($entity);
         $em->flush();
     }
+
+    /**
+     * Validates and saves object on POST.
+     *
+     * @param Symfony\Component\Form $form
+     * @return bool form submission success.
+     */
+    public function handleFormSubmissionOnPOST($form)
+    {
+        $request = $this->getRequest();
+
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+
+                $em->persist($form->getData());
+                $em->flush();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
