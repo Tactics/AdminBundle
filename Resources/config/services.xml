@@ -7,11 +7,6 @@
     <services>
         <service id='tactics.object_route_resolver' class='Tactics\Bundle\AdminBundle\ObjectRouteResolver\ObjectRouteResolver'>
             <argument type='service' id='service_container' />
-        </service>
-        <service id="tactics_user.group.form.type" class="Tactics\Bundle\AdminBundle\Form\Type\GroupFormType">
-            <tag name="form.type" alias="tactics_user_group" />
-            <argument>%fos_user.model.group.class%</argument>
-            <argument>%security.role_hierarchy.roles%</argument>            
-        </service>
+        </service>        
     </services>
 </container>
