@@ -11,6 +11,6 @@ class EntityNamer implements DirectoryNamerInterface
      */
     public function directoryName($obj, $field, $uploadDir)
     {
-        return $uploadDir . DIRECTORY_SEPARATOR . $obj->getId();
+        return $uploadDir . DIRECTORY_SEPARATOR . sprintf('%06u', $obj->getId());
     }
 }
