@@ -10,7 +10,8 @@
   }],
   "require": {
     "symfony/symfony": "2.1.*",
-    "propel/propel1": "1.6.*"
+    "propel/propel1": "1.6.*",
+    "vich/uploader-bundle": "dev-master"
   },
   "require-dev": {
     "sensio/framework-extra-bundle": "dev-master",
