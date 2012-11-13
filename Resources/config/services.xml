@@ -12,5 +12,8 @@
             <argument type='service' id='service_container' />
             <tag name="doctrine.event_subscriber" />
         </service>
+        <service id='tactics.entity_namer'
+        class='Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer'>
+        </service>
     </services>
 </container>
