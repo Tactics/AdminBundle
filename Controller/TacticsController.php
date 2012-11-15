@@ -72,14 +72,14 @@ class TacticsController extends Controller
                 $breadcrumb->add((string) $entity, $breadcrumbRouteName, array(
                     'id' => $id
                 ))
-                ->add('Edit');
+                ->add($this->get('translator')->trans('actions.edit', array(), 'TacticsAdminBundle'));
             }
         } else {
             $className = $entityRepository->getClassName();
             $entity = new $className();
 
             if ($breadcrumbRouteName) {
-                $breadcrumb->add('New');
+                $breadcrumb->add($this->get('translator')->trans('actions.new', array(), 'TacticsAdminBundle'));
             }
         }
 
