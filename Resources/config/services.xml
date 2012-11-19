@@ -13,7 +13,7 @@
             <tag name="doctrine.event_subscriber" />
         </service>
         <service id='tactics.entity_namer'
-        class='Tactics\Bundle\AdminBundle\Namer\EntityNamer'>
+        class='Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer'>
         </service>
     </services>
 </container>
