@@ -112,7 +112,7 @@ class Show implements ContainerAwareInterface
             $method = $this->getMethod($field);
             $value = $this->getObject()->$method();
         } else { // Custom field.
-            $value = isset($options['value']) ? $options['value'] : '';
+            $value = isset($options['value']) ? $options['value'] : $field;
             $field_label = isset($options['field_label']) ? $options['field_label'] : '';
         }
 
