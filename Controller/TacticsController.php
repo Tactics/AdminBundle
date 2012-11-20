@@ -3,6 +3,7 @@
 namespace Tactics\Bundle\AdminBundle\Controller;
 
 use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderFilter;
+use Tactics\Bundle\TacticsBundle\Entity\TacticsEntityInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -51,53 +52,13 @@ class TacticsController extends Controller
     }
 
     /**
-     * Creates or retrieves an entity.
-     *
-     * @param Doctrine\ORM\EntityRepository $entityRepository
-     * @param int $id
-     * @param string $breadcrumbRouteName
-     * @return Object A doctrine entity.
-     */
-    public function findOrCreateEntity($entityRepository, $id, $breadcrumbRouteName = null)
-    {
-        if ($breadcrumbRouteName) {
-            $breadcrumb = $this->get('apy_breadcrumb_trail');
-        }
-
-        if ($id) {
-            $entity = $entityRepository->find($id);
-            $this->createExceptionIfNotFound($entity);
-
-            if ($breadcrumbRouteName) {
-                $breadcrumb->add((string) $entity, $breadcrumbRouteName, array(
-                    'id' => $id
-                ))
-                ->add($this->get('translator')->trans('actions.edit', array(), 'TacticsAdminBundle'));
-            }
-        } else {
-            $className = $entityRepository->getClassName();
-            $entity = new $className();
-
-            if ($breadcrumbRouteName) {
-                $breadcrumb->add($this->get('translator')->trans('actions.new', array(), 'TacticsAdminBundle'));
-            }
-        }
-
-        return $entity;
-    }
-
-    /**
      * Attempts to delete an entity.
      *
-     * @param Doctrine\ORM\EntityRepository $entityRepository
-     * @param int $id
+     * @param TacticsEntityInterface $entity
      */
-    public function deleteEntity($entityRepository, $id)
+    public function deleteEntity(TacticsEntityInterface $entity)
     {
-        $entity = $entityRepository->find($id);
-        $this->createExceptionIfNotFound($entity);
-
-        if (! $entity->isDeletable()) {
+        if ( !$entity->isDeletable()) {
             $this->createNotFoundException();
         }
 
@@ -126,10 +87,133 @@ class TacticsController extends Controller
                 $em->persist($form->getData());
                 $em->flush();
 
+                $this->setFlashSuccess('form.success', array(), 'TacticsAdminBundle');
+                        
                 return true;
             }
         }
 
         return false;
+    }
+    
+    /**
+     * Shortcut to the Doctrine repository
+     * 
+     * @return Doctrine\ORM\EntityRepository
+     */
+    public function getRepository($repository)
+    {
+        return $this->getDoctrine()->getRepository($repository);
+    }
+    
+    /**
+     * Adds a default breadcrumb
+     * 
+     * @param Object $entity
+     * @param string $type
+     */
+    public function addBreadcrumb($entity, $type = 'show')
+    {
+        if ($entity && $entity->getId()) {
+            $this->get('apy_breadcrumb_trail')
+                ->add((string) $entity);
+        }
+        
+        switch ($type)
+        {
+            case 'edit':
+                if ($entity && $entity->getId()) {
+                    $this->get('apy_breadcrumb_trail')
+                    ->add(ucfirst($this->get('translator')->trans('actions.edit', array(), 'TacticsAdminBundle')));
+                } else {
+                    $this->get('apy_breadcrumb_trail')                
+                        ->add(ucfirst($this->get('translator')->trans('actions.new', array(), 'TacticsAdminBundle')));
+                }
+                break;
+                
+            case 'show':
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Translates the given message.
+     *
+     * @param string $id         The message id
+     * @param array  $parameters An array of parameters for the message
+     * @param string $domain     The domain for the message
+     * @param string $locale     The locale
+     *
+     * @return string The translated string
+     *
+     * @api
+     */
+    public function trans($id, array $parameters = array(), $domain = null, $locale = null)
+    {
+        return $this->get('translator')->trans($id, $parameters, $domain, $locale);
+    }    
+    
+    /**
+     * Sets a parameter in the flashbag
+     * 
+     * @param string $name
+     * @param string $value
+     */
+    public function setFlash($name, $value)
+    {        
+        $this->get('session')->getFlashBag()->set($name, $value);
+    }     
+
+    /**
+     * Sets a success message for display
+     * 
+     * @param string $message    The message to display
+     * @param array  $parameters An array of parameters for the message
+     * @param string $domain     The domain for the message
+     * @param string $locale     The locale
+     */
+    public function setFlashSuccess($message, array $parameters = array(), $translationDomain = null, $locale = null)
+    {
+        $this->setFlash('message.success', $this->trans($message, $parameters, $translationDomain, $locale));
+    }
+    
+    /**
+     * Sets a warning message for display
+     * 
+     * @param string $message    The message to display
+     * @param array  $parameters An array of parameters for the message
+     * @param string $domain     The domain for the message
+     * @param string $locale     The locale
+     */
+    public function setFlashWarning($message, array $parameters = array(), $translationDomain = null, $locale = null)
+    {
+        $this->setFlash('message.warning', $this->trans($message, $parameters, $translationDomain, $locale));
+    }
+
+    /**
+     * Sets an error message for display
+     * 
+     * @param string $message    The message to display
+     * @param array  $parameters An array of parameters for the message
+     * @param string $domain     The domain for the message
+     * @param string $locale     The locale
+     */
+    public function setFlashError($message, array $parameters = array(), $translationDomain = null, $locale = null)
+    {
+        $this->setFlash('message.error', $this->trans($message, $parameters, $translationDomain, $locale));
+    }
+
+    /**
+     * Sets an info message for display
+     * 
+     * @param string $message    The message to display
+     * @param array  $parameters An array of parameters for the message
+     * @param string $domain     The domain for the message
+     * @param string $locale     The locale
+     */
+    public function setFlashInfo($message, array $parameters = array(), $translationDomain = null, $locale = null)
+    {
+        $this->setFlash('message.info', $this->trans($message, $parameters, $translationDomain, $locale));
     }
 }
