@@ -1,17 +1,12 @@
 {% trans_default_domain "TacticsAdminBundle" %}
 
 <div class="btn-toolbar pull-right acties">
-    <div class="btn-group">
-        {% if menu is not defined %}
-            <a class="btn disabled" data-toggle="dropdown">
-                {% trans %}actions.name{% endtrans %}
-                &nbsp; <span class="caret"></span>
-            </a>
-        {% else %}
-            <a class="btn dropdown-toggle" data-toggle="dropdown">
-                {% trans %}actions.name{% endtrans %}
-                &nbsp; <span class="caret"></span>
-            </a>
+    <div class="btn-group">        
+        <a class="btn {% if menu is defined %} dropdown-toggle {% else %} disabled {% endif %}" data-toggle="dropdown">
+            {{ 'actions.name'|trans|capitalize }}
+            &nbsp; <span class="caret"></span>
+        </a>
+        {% if menu is defined %}
             <ul class="dropdown-menu">
                 {{ block('actions') }}
             </ul>

@@ -1,4 +1,8 @@
 actions:
-    name: Actions
-    new: New
-    edit: Edit
+    name: actions
+    new: new
+    edit: edit
+    
+form:
+  success: Your changes have been saved.
+    

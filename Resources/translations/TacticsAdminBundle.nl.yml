@@ -1,4 +1,7 @@
 actions:
-    name: Acties
-    new: Nieuw
-    edit: Bewerk
+    name: acties
+    new: nieuw
+    edit: bewerk
+
+form:
+  success: Uw wijzigingen werden bewaard.
