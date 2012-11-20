@@ -8,10 +8,17 @@
     "name": "Bart Ruysseveldt",
     "email": "bart@tactics.be"
   }],
+  "repositories": [
+    {
+        "type": "git",
+        "url": "git@github.com:Tactics/FormBundle"
+    }
+  ],
   "require": {
     "symfony/symfony": "2.1.*",
     "propel/propel1": "1.6.*",
-    "vich/uploader-bundle": "dev-master"
+    "vich/uploader-bundle": "dev-master",
+    "tactics/form-bundle": "dev-develop"
   },
   "require-dev": {
     "sensio/framework-extra-bundle": "dev-master",
