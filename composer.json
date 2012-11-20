@@ -8,12 +8,6 @@
     "name": "Bart Ruysseveldt",
     "email": "bart@tactics.be"
   }],
-  "repositories": [
-    {
-        "type": "git",
-        "url": "git@github.com:Tactics/FormBundle"
-    }
-  ],
   "require": {
     "symfony/symfony": "2.1.*",
     "propel/propel1": "1.6.*",
