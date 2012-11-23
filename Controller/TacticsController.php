@@ -3,7 +3,7 @@
 namespace Tactics\Bundle\AdminBundle\Controller;
 
 use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderFilter;
-use Tactics\Bundle\TacticsBundle\Entity\TacticsEntityInterface;
+use Tactics\Bundle\AdminBundle\Entity\TacticsEntityInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
