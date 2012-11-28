@@ -46,3 +46,7 @@
 .widget-content {
     padding: 10px;
 }
+
+.noprint {
+    display: none;
+}
