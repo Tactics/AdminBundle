@@ -103,11 +103,6 @@ class Show implements ContainerAwareInterface
             } else {
                 $value = '';
             }
-
-            // Generate label if not specified.
-            if (! isset($options['field_label'])) {
-                $options['field_label'] = ucfirst($field);
-            }
         } elseif ($this->getClassMetaData()->hasField($field)) { // Entity field
             $method = $this->getMethod($field);
             $value = $this->getObject()->$method();
