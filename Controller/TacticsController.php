@@ -59,7 +59,7 @@ class TacticsController extends Controller
     public function deleteEntity(TacticsEntityInterface $entity)
     {
         if ( !$entity->isDeletable()) {
-            $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
 
         $em = $this->getDoctrine()->getEntityManager();
