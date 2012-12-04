@@ -216,4 +216,79 @@ class TacticsController extends Controller
     {
         $this->setFlash('message.info', $this->trans($message, $parameters, $translationDomain, $locale));
     }
+    
+    /**
+     * serializes the given value
+     * 
+     * @param mixed $value
+     * @return string
+     */
+    public function serialize($value)
+    {
+        if(is_array($value)) {
+            $valueToSerialize = $this->serializeArray($value);
+        }
+        elseif (is_object($value) && method_exists($value, 'getId'))
+        {
+            $valueToSerialize = $this->serializeObject($value);
+        }
+        else {
+            $valueToSerialize = $value;
+        }
+        return serialize($valueToSerialize);
+    }
+    
+    /**
+     * return unserialized value
+     * 
+     * @param mixed $value
+     * @return mixed
+     */
+    public function unserialize($value)
+    {
+        $deserializedValue = unserialize($value);
+        if(is_array($deserializedValue)) {
+            $deserializedValue = $this->deserializeArray($deserializedValue);
+        }
+        return $deserializedValue;
+    }
+    
+    public function serializeObject($object)
+    {
+        $namespace = get_class($object);
+        return array($namespace => $object->getId());
+    }
+    
+    public function serializeArray($array)
+    {
+        foreach ($array as $key => $element) {
+            if (is_array($element)) {
+                $element = $this->serializeArray($element);
+            }
+            elseif (is_object($element) && method_exists($element, 'getId')) {
+                $element = $this->serializeObject($element);
+            }
+            $array[$key] = $element;
+        }
+        
+        return $array;
+    }
+
+    public function deserializeArray($array)
+    {
+        foreach ($array as $arrayKey => $element) {
+            if (is_array($element)) {
+                foreach ($element as $key => $value) {
+                    if(strrpos($key, '\Entity')) {
+                        $element = $this->getDoctrine()->getRepository($key)->find($value);
+                    }
+                    elseif(is_array($value)) {
+                        $element = $this->deserializeArray($array[$arrayKey]);
+                    }
+                }
+            }
+            $array[$arrayKey] = $element;
+        }
+        return $array;
+    }
 }
