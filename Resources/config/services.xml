@@ -12,8 +12,10 @@
             <argument type='service' id='service_container' />
             <tag name="doctrine.event_subscriber" />
         </service>
-        <service id='tactics.entity_namer'
-        class='Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer'>
+        <service id='tactics.entity_namer' class='Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer'>
+        </service>
+        <service id='tactics.access_checker' class='Tactics\Bundle\AdminBundle\AccessChecker'>
+            <argument type='service' id='service_container' />            
         </service>
     </services>
 </container>

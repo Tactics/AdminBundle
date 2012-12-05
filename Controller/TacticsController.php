@@ -18,7 +18,7 @@ class TacticsController extends Controller
     public function createExceptionIfNotFound($object, $type = false)
     {
         if (! $object) {
-            $notice = ($type ? $type : 'Object') . ' not found.';
+            $notice = ($type ?: 'Object') . ' not found.';
             throw $this->createNotFoundException($notice);
         }
     }
@@ -291,4 +291,16 @@ class TacticsController extends Controller
         }
         return $array;
     }
+    
+    /**
+     * checks if user has access on the given entity
+     * 
+     * @param type $entity
+     * @return boolean
+     */
+    public function checkUserAccess($entity)
+    {
+        return $this->get('tactics.access_checker')->checkUserAccess($entity);
+    }
+    
 }
