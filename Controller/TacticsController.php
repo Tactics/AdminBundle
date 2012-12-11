@@ -22,6 +22,30 @@ class TacticsController extends Controller
             throw $this->createNotFoundException($notice);
         }
     }
+    
+    /**
+     * Creates an access denied exception if the the access to the object is denied
+     * 
+     * @param boolean $accessGranted
+     * @param (optional) String $type of the object
+     */
+    public function createAccessDeniedExceptionUnless($accessGranted)
+    {
+        if (!$accessGranted) {            
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+        }
+    }
+    
+    /**
+     * Check if the current user has the given role
+     * 
+     * @param string $role
+     * @return boolean
+     */
+    public function isGranted($role)            
+    {
+        return $this->get('security.context')->isGranted($role);
+    }
 
     /**
      * Creates and returns a table builder instance
@@ -76,24 +100,9 @@ class TacticsController extends Controller
      */
     public function handleFormSubmissionOnPOST($form)
     {
-        $request = $this->getRequest();
-
-        if ('POST' === $request->getMethod()) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
-
-                $em->persist($form->getData());
-                $em->flush();
-
-                $this->setFlashSuccess('form.success', array(), 'TacticsAdminBundle');
-                        
-                return true;
-            }
-        }
-
-        return false;
+        $formHandler = $this->get('tactics.general.form.handler');
+        
+        return $formHandler->process($form);        
     }
     
     /**
@@ -295,12 +304,13 @@ class TacticsController extends Controller
     /**
      * checks if user has access on the given entity
      * 
-     * @param type $entity
-     * @return boolean
+     * @param type $entity     
      */
-    public function checkUserAccess($entity)
+    public function checkUserAccess($entity = null)
     {
-        return $this->get('tactics.access_checker')->checkUserAccess($entity);
+        if ($entity && !$this->get('tactics.access_checker')->checkUserAccess($entity)) {
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+        }
     }
     
 }

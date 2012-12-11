@@ -8,14 +8,21 @@
         <service id='tactics.object_route_resolver' class='Tactics\Bundle\AdminBundle\ObjectRouteResolver\ObjectRouteResolver'>
             <argument type='service' id='service_container' />
         </service>   
+        
         <service id='tactics.updater_loggable_listener' class='Tactics\Bundle\AdminBundle\Listener\UpdaterLoggableListener'>
             <argument type='service' id='service_container' />
             <tag name="doctrine.event_subscriber" />
         </service>
-        <service id='tactics.entity_namer' class='Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer'>
-        </service>
+        
+        <service id='tactics.entity_namer' class='Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer'></service>
+        
         <service id='tactics.access_checker' class='Tactics\Bundle\AdminBundle\AccessChecker'>
             <argument type='service' id='service_container' />            
+        </service>
+        
+        <service id="tactics.general.form.handler" class="Tactics\Bundle\AdminBundle\Form\Handler\GeneralFormHandler" scope="request">            
+            <argument type="service" id="request" />
+            <argument type="service" id="service_container" /> 
         </service>
     </services>
 </container>
