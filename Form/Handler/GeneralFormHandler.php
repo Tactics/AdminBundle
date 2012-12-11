@@ -4,7 +4,6 @@ namespace Tactics\Bundle\AdminBundle\Form\Handler;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\DependencyInjection\Container;
 
 class GeneralFormHandler
@@ -16,14 +15,14 @@ class GeneralFormHandler
      * constructor
      * 
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrineRegistry
+     * @param \Symfony\Component\DependencyInjection\Container $container
      */
     public function __construct(Request $request, Container $container)
     {
         $this->request = $request;
         $this->container = $container;
     }
-
+    
     /**
      * processes the form
      * 
@@ -56,9 +55,22 @@ class GeneralFormHandler
         $em->persist($form->getData());
         $em->flush();
         
+        $this->setFlashSuccess('form.success', array(), 'TacticsAdminBundle');                
+    }
+    
+    /**
+     * Sets a success message for display
+     * 
+     * @param string $message    The message to display
+     * @param array  $parameters An array of parameters for the message
+     * @param string $domain     The domain for the message
+     * @param string $locale     The locale
+     */
+    protected function setFlashSuccess($message, array $parameters = array(), $translationDomain = null, $locale = null)
+    {
         $session = $this->container->get('session');
         $translator = $this->container->get('translator');        
-        $session->getFlashBag()->set('message.success', $translator->trans('form.success', array(), 'TacticsAdminBundle'));        
+        $session->getFlashBag()->set('message.success', $translator->trans($message, $parameters, $translationDomain, $locale));
     }
 }
 
