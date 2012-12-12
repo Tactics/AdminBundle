@@ -73,13 +73,37 @@ class EntityFormHandler
      */
     protected function onSuccess(FormInterface $form)
     {
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $em->persist($form->getData());
-        $em->flush();
+        $this->em->persist($form->getData());
+        $this->em->flush();
         
         $this->setFlashSuccess();                
     }
-    
+
+    /**
+     * Ensure that removed items in collections actually get removed.
+     *
+     * @param \Symfony\Component\Form\FormInterface $form
+     */
+    protected function cleanupCollections(FormInterface $form)
+    {
+        $children = $form->getChildren();
+
+        foreach ($children as $childForm) {
+            $data = $childForm->getData();
+            if ($data instanceof Collection) {
+
+                // Get the child form objects and compare the data of each child against the object's current collection
+                $proxies = $childForm->getChildren();
+                foreach ($proxies as $proxy) {
+                    $entity = $proxy->getData();
+                    if (!$data->contains($entity)) {
+                        $this->em->remove($entity);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Sets a success message for display
      * 
