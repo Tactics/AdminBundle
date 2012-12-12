@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\Container;
 
-class GeneralFormHandler
+class EntityFormHandler
 {
     protected $request;            
     protected $container;
@@ -55,7 +55,7 @@ class GeneralFormHandler
         $em->persist($form->getData());
         $em->flush();
         
-        $this->setFlashSuccess('form.success', array(), 'TacticsAdminBundle');                
+        $this->setFlashSuccess();                
     }
     
     /**
@@ -66,7 +66,7 @@ class GeneralFormHandler
      * @param string $domain     The domain for the message
      * @param string $locale     The locale
      */
-    protected function setFlashSuccess($message, array $parameters = array(), $translationDomain = null, $locale = null)
+    protected function setFlashSuccess($message = 'form.success', array $parameters = array(), $translationDomain = 'TacticsAdminBundle', $locale = null)
     {
         $session = $this->container->get('session');
         $translator = $this->container->get('translator');        

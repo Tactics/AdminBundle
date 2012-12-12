@@ -100,7 +100,7 @@ class TacticsController extends Controller
      */
     public function handleFormSubmissionOnPOST($form)
     {
-        $formHandler = $this->get('tactics.general.form.handler');
+        $formHandler = $this->get('tactics.entity.form.handler');
         
         return $formHandler->process($form);        
     }

@@ -20,7 +20,7 @@
             <argument type='service' id='service_container' />            
         </service>
         
-        <service id="tactics.general.form.handler" class="Tactics\Bundle\AdminBundle\Form\Handler\GeneralFormHandler" scope="request">            
+        <service id="tactics.entity.form.handler" class="Tactics\Bundle\AdminBundle\Form\Handler\EntityFormHandler" scope="request">            
             <argument type="service" id="request" />
             <argument type="service" id="service_container" /> 
         </service>
