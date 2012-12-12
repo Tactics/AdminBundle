@@ -73,5 +73,3 @@ class EntityFormHandler
         $session->getFlashBag()->set('message.success', $translator->trans($message, $parameters, $translationDomain, $locale));
     }
 }
-
-?>
