@@ -5,11 +5,31 @@ namespace Tactics\Bundle\AdminBundle\Form\Handler;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 class EntityFormHandler
 {
+    /**
+     * @var Symfony\Component\HttpFoundation\Request $request
+     */
     protected $request;            
-    protected $container;
+
+    /**
+     * @var Doctrine\Common\Persistence\ObjectManager
+     */
+    protected $em;
+
+    /**
+     * @var Symfony\Component\HttpFoundation\Session\Session $session
+     */
+    protected $session;
+
+    /**
+     * @var Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     */
+    protected $translator;
 
     /**
      * constructor
@@ -17,10 +37,12 @@ class EntityFormHandler
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Symfony\Component\DependencyInjection\Container $container
      */
-    public function __construct(Request $request, Container $container)
+    public function __construct(Request $request, ObjectManager $em, Session $session, Translator $translator)
     {
         $this->request = $request;
-        $this->container = $container;
+        $this->em = $em;
+        $this->session = $session;
+        $this->translator = $translator;
     }
     
     /**
@@ -51,13 +73,12 @@ class EntityFormHandler
      */
     protected function onSuccess(FormInterface $form)
     {
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $em->persist($form->getData());
-        $em->flush();
+        $this->em->persist($form->getData());
+        $this->em->flush();
         
         $this->setFlashSuccess();                
     }
-    
+
     /**
      * Sets a success message for display
      * 
@@ -68,10 +89,9 @@ class EntityFormHandler
      */
     protected function setFlashSuccess($message = 'form.success', array $parameters = array(), $translationDomain = 'TacticsAdminBundle', $locale = null)
     {
-        $session = $this->container->get('session');
-        $translator = $this->container->get('translator');        
-        $session->getFlashBag()->set('message.success', $translator->trans($message, $parameters, $translationDomain, $locale));
+        $this->session->getFlashBag()->set(
+            'message.success', 
+            $this->translator->trans($message, $parameters, $translationDomain, $locale)
+        );
     }
 }
-
-?>
