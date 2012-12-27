@@ -13,7 +13,8 @@
     "propel/propel1": "1.6.*",
     "vich/uploader-bundle": "dev-master",
     "tactics/form-bundle": "dev-develop",
-    "tactics/breadcrumb-trail-bundle": "dev-master"
+    "tactics/breadcrumb-trail-bundle": "dev-master",
+    "friendsofsymfony/jsrouting-bundle": "1.0.*"
   },
   "require-dev": {
     "sensio/framework-extra-bundle": "dev-master",
