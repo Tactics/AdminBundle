@@ -1,0 +1,22 @@
+{% extends 'TacticsAdminBundle::public.html.twig' %}
+
+{% block content_container %}
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                  <div class="span12">
+                      {% block content %}
+                            <h2>Oops! An Error Occurred : {{ status_code }} {{ status_text }}</h2>
+
+                            <div>
+                                Something is broken. Please e-mail us and let us know
+                                what you were doing when this error occurred. We will fix it as soon
+                                as possible. <br/>Sorry for any inconvenience caused.
+                            </div>
+                            <br/><br/>
+                      {% endblock content %}
+                </div> <!-- /span9 -->
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /content -->
+{% endblock %}
