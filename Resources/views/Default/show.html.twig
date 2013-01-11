@@ -8,7 +8,7 @@
           {% for field in show.getFields('top') %}
             <tr>
               <th class="span2">
-                {{ field.label }}
+                {{ field.label|trans|capitalize }}
               </th>
               <td>
                 {{ field.value|raw }}
@@ -29,7 +29,7 @@
           {% for field in show.getFields('left') %}
             <tr>
               <th class="span2">
-                {{ field.label }}
+                {{ field.label|trans|capitalize }}
               </th>
               <td>
                 {{ field.value|raw }}
@@ -50,7 +50,7 @@
           {% for field in show.getFields('right') %}
             <tr>
               <th class="span2">
-                {{ field.label }}
+                {{ field.label|trans|capitalize }}
               </th>
               <td>
                 {{ field.value|raw }}
@@ -71,7 +71,7 @@
           {% for field in show.getFields('bottom') %}
             <tr>
               <th class="span2">
-                {{ field.label }}
+                {{ field.label|trans|capitalize }}
               </th>
               <td>
                 {{ field.value|raw }}
@@ -99,7 +99,7 @@
             {% for field in show.getFields('top',true) %}
               <tr>
                 <th class="span2">
-                  {{ field.label }}
+                  {{ field.label|trans|capitalize }}
                 </th>
                 <td>
                   {{ field.value|raw }}
@@ -120,7 +120,7 @@
             {% for field in show.getFields('left',true) %}
               <tr>
                 <th class="span2">
-                  {{ field.label }}
+                  {{ field.label|trans|capitalize }}
                 </th>
                 <td>
                   {{ field.value|raw }}
@@ -141,7 +141,7 @@
             {% for field in show.getFields('right', true) %}
               <tr>
                 <th class="span2">
-                  {{ field.label }}
+                  {{ field.label|trans|capitalize }}
                 </th>
                 <td>
                   {{ field.value|raw }}
@@ -162,7 +162,7 @@
             {% for field in show.getFields('bottom',true) %}
               <tr>
                 <th class="span2">
-                  {{ field.label }}
+                  {{ field.label|trans|capitalize }}
                 </th>
                 <td>
                   {{ field.value|raw }}

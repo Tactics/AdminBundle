@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id='tactics.object_route_resolver' class='Tactics\Bundle\AdminBundle\ObjectRouteResolver\ObjectRouteResolver'>
+            <argument type='service' id='service_container' />
+        </service>   
+        
+        <service id='tactics.updater_loggable_listener' class='Tactics\Bundle\AdminBundle\Listener\UpdaterLoggableListener'>
+            <argument type='service' id='service_container' />
+            <tag name="doctrine.event_subscriber" />
+        </service>
+        
+        <service id='tactics.entity_namer' class='Tactics\Bundle\AdminBundle\DirectoryNamer\EntityNamer'></service>
+        
+        <service id='tactics.access_checker' class='Tactics\Bundle\AdminBundle\AccessChecker'>
+            <argument type='service' id='service_container' />            
+        </service>
+        
+        <service id="tactics.entity.form.handler" class="Tactics\Bundle\AdminBundle\Form\Handler\EntityFormHandler" scope="request">            
+            <argument type="service" id="request" />
+            <argument type="service" id="doctrine.orm.entity_manager" /> 
+            <argument type="service" id="session" /> 
+            <argument type="service" id="translator" /> 
+        </service>
+        
+        <service id="tactics.serializer" class="Tactics\Bundle\AdminBundle\Serializer">
+            <argument type="service" id="service_container" />
+        </service>
+    </services>
+</container>

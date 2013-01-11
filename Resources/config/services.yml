@@ -1,5 +1,0 @@
-parameters:
-services:
-    tactics.object_route_resolver:
-        class: Tactics\Bundle\AdminBundle\ObjectRouteResolver\ObjectRouteResolver
-        arguments: [@service_container]
