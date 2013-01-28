@@ -110,9 +110,9 @@ class TacticsController extends Controller
      * 
      * @return Doctrine\ORM\EntityRepository
      */
-    public function getRepository($repository)
+    public function getRepository($repository, $managerName = null)
     {
-        return $this->getDoctrine()->getRepository($repository);
+        return $this->getDoctrine()->getRepository($repository, $managerName);
     }
     
     /**
