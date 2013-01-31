@@ -16,6 +16,9 @@
 #filter,
 .filter,
 .sf-toolbarreset,
+.btn,
+.nav,
+.nav-tabs,
 #ribbon{
     display: none ! important;
 }
@@ -49,4 +52,24 @@
 
 .noprint {
     display: none;
+}
+
+a {
+    color: black ! important;
+}
+
+button {
+    display: none ! important;
+}
+
+.widget-header {
+    background: none ! important;
+}
+
+body {
+    background: none ! important;
+}
+
+.tab-pane {
+    display: block ! important;
 }
