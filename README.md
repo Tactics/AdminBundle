@@ -54,3 +54,21 @@ Include this file in your config.yml:
             globals:
                 title: 
                 page_title:
+
+
+Error pages
+--------------
+
+The default exception-pages can be overwritten by the custom exception controller. 
+
+There are three error pages : 
+- 404 Page not found
+- 403 Access denied
+- All other errors
+
+### Usage
+
+Add to the config (of a certain environment or all)
+
+twig:
+  exception_controller: "TacticsAdminBundle:Exception:exception" 

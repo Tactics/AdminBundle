@@ -1,0 +1,25 @@
+{% extends 'TacticsAdminBundle::public.html.twig' %}
+
+{% block content_container %}
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                  <div class="span12">
+                      {% block content %}
+                            <h2>404 - Page not found</h2>
+                            <div>
+                                <p style='font-weight: bold'>The requested URL was not found on this server. </p>
+
+                                <p>Return to <a href='#' onclick='history.back();'>previous page</a> and try again or correct your search.</p>
+
+                                <p>
+                                  <a href='#' onclick='history.back();'>Click here to return to the previous page.</a>
+                                </p>
+                            </div>
+                            <br/><br/>
+                      {% endblock content %}
+                </div> <!-- /span9 -->
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /content -->
+{% endblock %}

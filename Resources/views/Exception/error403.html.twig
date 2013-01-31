@@ -1,0 +1,23 @@
+{% extends 'TacticsAdminBundle::public.html.twig' %}
+
+{% block content_container %}
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                  <div class="span12">
+                      {% block content %}
+                            <h2>403 - Access denied</h2>
+                            <div>
+                                <p style='font-weight: bold'>You don't have access to this page. </p>
+
+                                <p>
+                                  <a href='#' onclick='history.back();'>Click here to return to the previous page.</a>
+                                </p>
+                            </div>
+                            <br/><br/>
+                      {% endblock content %}
+                </div> <!-- /span9 -->
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /content -->
+{% endblock %}
