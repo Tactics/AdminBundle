@@ -22,43 +22,8 @@ class UpdaterLoggableListener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-          'prePersist',
           'onFlush',
         );
-    }
-
-    /**
-     * Checks for persisted UpdaterLoggable objects
-     * to update creation and modification dates
-     *
-     * @param LifecycleEventArgs $eventArgs
-     * @return void
-     */
-    public function prePersist(LifecycleEventArgs $eventArgs)
-    {
-        // security.context user
-        $user = $this->getUser();
-
-        // user moet ingelogd zijn en een id hebben
-        if (!is_object($user) || !method_exists($user, 'getId')) {
-            return;
-        }
-
-        $annotationReader = $this->getAnnotationReader();
-
-        $entity = $eventArgs->getEntity();
-        $reflectionObject = new \ReflectionObject($entity);
-
-        foreach ($reflectionObject->getProperties() as $reflectionProperty) {
-            // properties met @Tactics\UpdaterLoggable annotation ophalen
-            $annotation = $annotationReader->getPropertyAnnotation($reflectionProperty, $this->annotationClass);
-            if (null !== $annotation) {
-                $reflectionProperty->setAccessible(true);
-                if ($reflectionProperty->getValue($entity) === null) { // let manual changes be
-                    $reflectionProperty->setValue($entity, $user->getId());
-                }
-            }
-        }
     }
 
     /**
@@ -83,6 +48,23 @@ class UpdaterLoggableListener implements EventSubscriber
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
 
+        foreach ($uow->getScheduledEntityInsertions() AS $entity) {
+            $reflectionObject = new \ReflectionObject($entity);
+            foreach ($reflectionObject->getProperties() as $reflectionProperty) {
+                // properties met @Tactics\UpdaterLoggable annotation ophalen
+                $annotation = $annotationReader->getPropertyAnnotation($reflectionProperty, $this->annotationClass);
+                if (null !== $annotation) {
+                    // TODO: only update value if not in changeset yet
+                    if ($annotation->type == 'created_by') {
+                        $reflectionProperty->setAccessible(true);
+                        $reflectionProperty->setValue($entity, $user->getId());
+
+                        $this->recomputeChangeSet($eventArgs, $entity);
+                    }
+                }
+            }
+        }
+
         foreach ($uow->getScheduledEntityUpdates() as $entity)
         {
             $reflectionObject = new \ReflectionObject($entity);
@@ -91,15 +73,29 @@ class UpdaterLoggableListener implements EventSubscriber
                 $annotation = $annotationReader->getPropertyAnnotation($reflectionProperty, $this->annotationClass);
                 if (null !== $annotation) {
                     // TODO: only update value if not in changeset yet
-                    if ($annotation->type == 'updated_by') { // created_by only in prePersist
+                    if ($annotation->type == 'updated_by') {
                         $reflectionProperty->setAccessible(true);
                         $reflectionProperty->setValue($entity, $user->getId());
+
+                        $this->recomputeChangeSet($eventArgs, $entity);
                     }
                 }
             }
         }
     }
 
+    /**
+     * Recomputes the change set for the object.
+     *
+     * @param OnFlushEventArgs $e The event arguments.
+     */
+    protected function recomputeChangeSet(OnFlushEventArgs $args, $entity)
+    {
+        $em = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
+        $metadata = $em->getClassMetadata(get_class($entity));
+        $uow->recomputeSingleEntityChangeSet($metadata, $entity);
+    }
 
     /**
      *
