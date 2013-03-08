@@ -14,7 +14,7 @@ class EntityFormHandler
     /**
      * @var Symfony\Component\HttpFoundation\Request $request
      */
-    protected $request;            
+    protected $request;
 
     /**
      * @var Doctrine\Common\Persistence\ObjectManager
@@ -33,7 +33,7 @@ class EntityFormHandler
 
     /**
      * constructor
-     * 
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Symfony\Component\DependencyInjection\Container $container
      */
@@ -44,10 +44,10 @@ class EntityFormHandler
         $this->session = $session;
         $this->translator = $translator;
     }
-    
+
     /**
      * processes the form
-     * 
+     *
      * @param \Symfony\Component\Form\FormInterface $form
      * @return boolean
      */
@@ -67,21 +67,44 @@ class EntityFormHandler
     }
 
     /**
+     * Returns the currently used entity manager
+     *
+     * @return \Doctrine\Common\Persistence\ObjectManager|Doctrine\Common\Persistence\ObjectManager
+     */
+    public function getEntityManager()
+    {
+        return $this->em;
+    }
+
+    /**
+     * Replace the currently used entity manager
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $em
+     * @return EntityFormHandler
+     */
+    public function setEntityManager(ObjectManager $em)
+    {
+        $this->em = $em;
+
+        return $this;
+    }
+
+    /**
      * action that is executed when form is successfully validated
-     * 
+     *
      * @param \Symfony\Component\Form\FormInterface $form
      */
     protected function onSuccess(FormInterface $form)
     {
         $this->em->persist($form->getData());
         $this->em->flush();
-        
-        $this->setFlashSuccess();                
+
+        $this->setFlashSuccess();
     }
 
     /**
      * Sets a success message for display
-     * 
+     *
      * @param string $message    The message to display
      * @param array  $parameters An array of parameters for the message
      * @param string $domain     The domain for the message
@@ -90,7 +113,7 @@ class EntityFormHandler
     protected function setFlashSuccess($message = 'form.success', array $parameters = array(), $translationDomain = 'TacticsAdminBundle', $locale = null)
     {
         $this->session->getFlashBag()->set(
-            'message.success', 
+            'message.success',
             $this->translator->trans($message, $parameters, $translationDomain, $locale)
         );
     }
