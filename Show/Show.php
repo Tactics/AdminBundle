@@ -83,7 +83,7 @@ class Show implements ContainerAwareInterface
     protected function createField($field, $field_type, $options)
     {
         $associationMappings = $this->getClassMetaData()->getAssociationMappings();
-      
+
         // When field is associated, retrieve associated object(s) and cast 
         // them to string.
         if (false !== array_key_exists($field, $associationMappings)) {
@@ -136,7 +136,8 @@ class Show implements ContainerAwareInterface
         // veld teruggeven
         return array(
             'label' => $field_label,
-            'value' => $this->formatField($value, $field_type, $options)
+            'value' => $this->formatField($value, $field_type, $options),
+            'options' => $options,
         );
     }
 
@@ -205,27 +206,27 @@ class Show implements ContainerAwareInterface
     {
 
         switch ($field_type) {
-        case self::FIELD_TYPE_STRING:
-            $field_value = $this->formatStringField($value, $options);
-            break;
-        case self::FIELD_TYPE_DATE:
-            $field_value = $this->formatDateField($value, $options);
-            break;
-        case self::FIELD_TYPE_DECIMAL:
-            $field_value = $this->formatDecimalField($value, $options);
-            break;
-        case self::FIELD_TYPE_MONEY:
-            $field_value = $this->formatMoneyField($value, $options);
-            break;
-        case self::FIELD_TYPE_OBJECT:
-            $field_value = $this->formatObjectField($value, $options);
-            break;
-        case self::FIELD_TYPE_ARRAY:
-            $field_value = $this->formatArrayField($value, $options);
-            break;
-        case self::FIELD_TYPE_NULL:
-            $field_value = $this->formatNullField($value, $options);
-            break;
+            case self::FIELD_TYPE_STRING:
+                $field_value = $this->formatStringField($value, $options);
+                break;
+            case self::FIELD_TYPE_DATE:
+                $field_value = $this->formatDateField($value, $options);
+                break;
+            case self::FIELD_TYPE_DECIMAL:
+                $field_value = $this->formatDecimalField($value, $options);
+                break;
+            case self::FIELD_TYPE_MONEY:
+                $field_value = $this->formatMoneyField($value, $options);
+                break;
+            case self::FIELD_TYPE_OBJECT:
+                $field_value = $this->formatObjectField($value, $options);
+                break;
+            case self::FIELD_TYPE_ARRAY:
+                $field_value = $this->formatArrayField($value, $options);
+                break;
+            case self::FIELD_TYPE_NULL:
+                $field_value = $this->formatNullField($value, $options);
+                break;
         }
 
         return $field_value;
@@ -235,20 +236,20 @@ class Show implements ContainerAwareInterface
     {
         if (isset($options['case'])) {
             switch ($options['case']) {
-            case self::CASE_LOWER:
-                $value = strtolower($value);
-                break;
-            case self::CASE_UPPER:
-                $value = strtoupper($value);
-                break;
-            case self::CASE_UCFIRST:
-                $value = ucfirst($value);
-                break;
-            case self::CASE_UCWORDS:
-                $value = ucwords($value);
-                break;
-            default:
-                $value = ucfirst($value);
+                case self::CASE_LOWER:
+                    $value = strtolower($value);
+                    break;
+                case self::CASE_UPPER:
+                    $value = strtoupper($value);
+                    break;
+                case self::CASE_UCFIRST:
+                    $value = ucfirst($value);
+                    break;
+                case self::CASE_UCWORDS:
+                    $value = ucwords($value);
+                    break;
+                default:
+                    $value = ucfirst($value);
             }
         }
 

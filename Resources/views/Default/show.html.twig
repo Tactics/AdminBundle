@@ -1,187 +1,187 @@
-  {% if show.hasFields %}
+{% if show.hasFields %}
 
     {% if show.hasFieldsAtPosition('top') %}
 
-      <table class="table table-condensed {{spanwidth}}">
-        <tbody>
+        <table class="table table-condensed {{spanwidth}}">
+            <tbody>
 
-          {% for field in show.getFields('top') %}
-            <tr>
-              <th class="span2">
-                {{ field.label|trans|capitalize }}
-              </th>
-              <td>
-                {{ field.value|raw }}
-              </td>
-            </tr>
-          {% endfor %}
+            {% for field in show.getFields('top') %}
+                <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                    <th class="span2">
+                        {{ field.label|trans|capitalize }}
+                    </th>
+                    <td>
+                        {{ field.value|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
 
-        </tbody>
-      </table>
+            </tbody>
+        </table>
 
     {% endif %}
 
     {% if show.hasFieldsAtPosition('left') %}
 
-      <table class="table table-condensed {{ show.hasFieldsAtPosition('right') ? 'span6' : spanwidth }}">
-        <tbody>
+        <table class="table table-condensed {{ show.hasFieldsAtPosition('right') ? 'span6' : spanwidth }}">
+            <tbody>
 
-          {% for field in show.getFields('left') %}
-            <tr>
-              <th class="span2">
-                {{ field.label|trans|capitalize }}
-              </th>
-              <td>
-                {{ field.value|raw }}
-              </td>
-            </tr>
-          {% endfor %}
+            {% for field in show.getFields('left') %}
+                <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                    <th class="span2">
+                        {{ field.label|trans|capitalize }}
+                    </th>
+                    <td>
+                        {{ field.value|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
 
-        </tbody>
-      </table>
+            </tbody>
+        </table>
 
     {% endif %}
 
     {% if show.hasFieldsAtPosition('right') %}
 
-      <table class="table table-condensed {{ show.hasFieldsAtPosition('left') ? 'span5' : spanwidth }}">
-        <tbody>
+        <table class="table table-condensed {{ show.hasFieldsAtPosition('left') ? 'span5' : spanwidth }}">
+            <tbody>
 
-          {% for field in show.getFields('right') %}
-            <tr>
-              <th class="span2">
-                {{ field.label|trans|capitalize }}
-              </th>
-              <td>
-                {{ field.value|raw }}
-              </td>
-            </tr>
-          {% endfor %}
+            {% for field in show.getFields('right') %}
+                <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                    <th class="span2">
+                        {{ field.label|trans|capitalize }}
+                    </th>
+                    <td>
+                        {{ field.value|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
 
-        </tbody>
-      </table>
+            </tbody>
+        </table>
 
     {% endif %}
 
     {% if show.hasFieldsAtPosition('bottom') %}
 
-      <table class="table table-condensed {{spanwidth}}">
-        <tbody>
+        <table class="table table-condensed {{spanwidth}}">
+            <tbody>
 
-          {% for field in show.getFields('bottom') %}
-            <tr>
-              <th class="span2">
-                {{ field.label|trans|capitalize }}
-              </th>
-              <td>
-                {{ field.value|raw }}
-              </td>
-            </tr>
-          {% endfor %}
+            {% for field in show.getFields('bottom') %}
+                <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                    <th class="span2">
+                        {{ field.label|trans|capitalize }}
+                    </th>
+                    <td>
+                        {{ field.value|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
 
-        </tbody>
-      </table>
+            </tbody>
+        </table>
 
     {% endif %}
 
-  {% endif %}
+{% endif %}
 
   {% if show.hasHiddenFields %}
 
-  <div class="row">
-    <div class="span12 collapse" id="hiddenfields">
+      <div class="row">
+          <div class="span12 collapse" id="hiddenfields">
 
-      {% if show.hasFieldsAtPosition('top', true) %}
+              {% if show.hasFieldsAtPosition('top', true) %}
 
-        <table class="table collapse table-condensed {{spanwidth}}">
-          <tbody>
+                  <table class="table collapse table-condensed {{spanwidth}}">
+                      <tbody>
 
-            {% for field in show.getFields('top',true) %}
-              <tr>
-                <th class="span2">
-                  {{ field.label|trans|capitalize }}
-                </th>
-                <td>
-                  {{ field.value|raw }}
-                </td>
-              </tr>
-            {% endfor %}
+                      {% for field in show.getFields('top',true) %}
+                          <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                              <th class="span2">
+                                  {{ field.label|trans|capitalize }}
+                              </th>
+                              <td>
+                                  {{ field.value|raw }}
+                              </td>
+                          </tr>
+                      {% endfor %}
 
-          </tbody>
-        </table>
+                      </tbody>
+                  </table>
 
-      {% endif %}
+              {% endif %}
 
-      {% if show.hasFieldsAtPosition('left', true) %}
+              {% if show.hasFieldsAtPosition('left', true) %}
 
-        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('right', true)  ? 'span6' : spanwidth }}">
-          <tbody>
+                  <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('right', true)  ? 'span6' : spanwidth }}">
+                      <tbody>
 
-            {% for field in show.getFields('left',true) %}
-              <tr>
-                <th class="span2">
-                  {{ field.label|trans|capitalize }}
-                </th>
-                <td>
-                  {{ field.value|raw }}
-                </td>
-              </tr>
-            {% endfor %}
+                      {% for field in show.getFields('left',true) %}
+                          <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                              <th class="span2">
+                                  {{ field.label|trans|capitalize }}
+                              </th>
+                              <td>
+                                  {{ field.value|raw }}
+                              </td>
+                          </tr>
+                      {% endfor %}
 
-          </tbody>
-        </table>
+                      </tbody>
+                  </table>
 
-      {% endif %}
+              {% endif %}
 
-      {% if show.hasFieldsAtPosition('right', true) %}
+              {% if show.hasFieldsAtPosition('right', true) %}
 
-        <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('left', true) ? 'span5' : spanwidth }}">
-          <tbody>
+                  <table class="table collapse table-condensed {{ show.hasFieldsAtPosition('left', true) ? 'span5' : spanwidth }}">
+                      <tbody>
 
-            {% for field in show.getFields('right', true) %}
-              <tr>
-                <th class="span2">
-                  {{ field.label|trans|capitalize }}
-                </th>
-                <td>
-                  {{ field.value|raw }}
-                </td>
-              </tr>
-            {% endfor %}
+                      {% for field in show.getFields('right', true) %}
+                          <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                              <th class="span2">
+                                  {{ field.label|trans|capitalize }}
+                              </th>
+                              <td>
+                                  {{ field.value|raw }}
+                              </td>
+                          </tr>
+                      {% endfor %}
 
-          </tbody>
-        </table>
+                      </tbody>
+                  </table>
 
-      {% endif %}
+              {% endif %}
 
-      {% if show.hasFieldsAtPosition('bottom', true) %}
+              {% if show.hasFieldsAtPosition('bottom', true) %}
 
-        <table class="table collapse table-condensed {{spanwidth}}">
-          <tbody>
+                  <table class="table collapse table-condensed {{spanwidth}}">
+                      <tbody>
 
-            {% for field in show.getFields('bottom',true) %}
-              <tr>
-                <th class="span2">
-                  {{ field.label|trans|capitalize }}
-                </th>
-                <td>
-                  {{ field.value|raw }}
-                </td>
-              </tr>
-            {% endfor %}
+                      {% for field in show.getFields('bottom',true) %}
+                          <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                              <th class="span2">
+                                  {{ field.label|trans|capitalize }}
+                              </th>
+                              <td>
+                                  {{ field.value|raw }}
+                              </td>
+                          </tr>
+                      {% endfor %}
 
-          </tbody>
-        </table>
+                      </tbody>
+                  </table>
 
-      {% endif %}
+              {% endif %}
 
-    </div>
-  </div>
+          </div>
+      </div>
 
-    <div class="span12">
-      <a id="toon_meer" href="#" data-status="inactive" data-active-text="{{ show.dataActiveText }}" data-inactive-text="{{ show.dataInactiveText }}" data-toggle="collapse" data-target="#hiddenfields">
-        {{ show.dataInactiveText }}
-      </a>
-    </div>
+      <div class="span12">
+          <a id="toon_meer" href="#" data-status="inactive" data-active-text="{{ show.dataActiveText }}" data-inactive-text="{{ show.dataInactiveText }}" data-toggle="collapse" data-target="#hiddenfields">
+              {{ show.dataInactiveText }}
+          </a>
+      </div>
 
   {% endif %}
