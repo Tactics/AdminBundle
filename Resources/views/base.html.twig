@@ -55,7 +55,26 @@
 
         {% block content_container %}
         {% endblock %}
-
+        
+        <div id="switch_user">
+            <!-- Switch user -->
+            <div id="switchUserDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="switchUserDialogLabel" aria-hidden="true">
+              <form action="{{ app.request.requesturi }}">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="switchUserDialogLabel">Switch user</h3>
+              </div>
+              <div class="modal-body">
+                  <input id="_switch_user" name="_switch_user">
+              </div>
+              <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-primary">Switch</button>
+              </div>
+              </form>
+            </div>
+        </div>
+        
         <div id="footer">
             <div class="container">
                 <hr>
