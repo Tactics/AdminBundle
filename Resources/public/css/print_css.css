@@ -6,7 +6,7 @@
         Purpose of the stylesheet follows.
 */
 
-.navbar, 
+.navbar,
 .navbar-inner,
 .subnav,
 .breadcrumb,
@@ -37,7 +37,7 @@
     height : auto;
     width: auto;
 }
-.widget , 
+.widget ,
 .row > .span12 ,
 .container {
     width: auto;
@@ -48,10 +48,6 @@
 }
 .widget-content {
     padding: 10px;
-}
-
-.noprint {
-    display: none;
 }
 
 a {
@@ -72,4 +68,35 @@ body {
 
 .tab-pane {
     display: block ! important;
+}
+
+.table {
+    margin-bottom: 50px;
+}
+.table th {
+    border: none ;
+}
+
+.table td {
+    border: none;
+}
+
+.widget-header {
+    border: none;
+}
+
+.widget-content{
+    border: none;
+}
+
+.table-condensed th, .table-condensed td {
+    padding: 1px;
+}
+
+.tab_pane {
+    margin-bottom: 50px;
+}
+
+.noprint {
+    display: none ! important;
 }
