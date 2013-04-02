@@ -72,6 +72,7 @@ body {
 
 .table {
     margin-bottom: 50px;
+    width: 100%;
 }
 .table th {
     border: none ;
@@ -99,4 +100,9 @@ body {
 
 .noprint {
     display: none ! important;
+}
+
+.only_print {
+    display: block ! important;
+    color: black ! important;
 }
