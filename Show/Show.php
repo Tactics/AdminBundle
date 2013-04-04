@@ -15,6 +15,7 @@ class Show implements ContainerAwareInterface
     const FIELD_TYPE_MONEY = 'money';
     const FIELD_TYPE_ARRAY = 'array';
     const FIELD_TYPE_NULL = 'empty';
+    const FIELD_TYPE_BOOLEAN = 'boolean';
 
     const CASE_LOWER = 'lower';
     const CASE_UPPER = 'upper';
@@ -122,7 +123,7 @@ class Show implements ContainerAwareInterface
 
         // als value leeg is, field_type_null zetten (guessFieldType houdt hier rekening mee,
         // als er een type specifiek gegeven wordt, gebeurt dit niet.
-        if (! $value) {
+        if (! $value && $field_type !== self::FIELD_TYPE_BOOLEAN) {
             $field_type = self::FIELD_TYPE_NULL;
         }
 
@@ -204,7 +205,6 @@ class Show implements ContainerAwareInterface
      */
     protected function formatField($value, $field_type, $options = array())
     {
-
         switch ($field_type) {
             case self::FIELD_TYPE_STRING:
                 $field_value = $this->formatStringField($value, $options);
@@ -223,6 +223,9 @@ class Show implements ContainerAwareInterface
                 break;
             case self::FIELD_TYPE_ARRAY:
                 $field_value = $this->formatArrayField($value, $options);
+                break;
+            case self::FIELD_TYPE_BOOLEAN:
+                $field_value = $this->formatBooleanField($value, $options);
                 break;
             case self::FIELD_TYPE_NULL:
                 $field_value = $this->formatNullField($value, $options);
@@ -692,5 +695,19 @@ class Show implements ContainerAwareInterface
     public function setDataInactiveText($dataInactiveText)
     {
         $this->dataInactiveText = $dataInactiveText;
+    }
+
+    /**
+     * Formats value of a boolean field
+     *
+     * @param $value
+     * @param $options
+     */
+    protected function formatBooleanField($value, $options)
+    {
+        $trueValue = isset($options['boolean_true_value']) ? $options['boolean_true_value'] : 'Yes';
+        $falseValue = isset($options['boolean_false_value']) ? $options['boolean_false_value'] : 'No';
+
+        return $value ? $trueValue : $falseValue;
     }
 }
