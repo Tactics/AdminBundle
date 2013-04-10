@@ -19,8 +19,12 @@ class TacticsWebTestCase extends WebTestCase
         static::$kernel->boot();
     }
 
-    public function loadFixtures(ObjectManager $om, $dir = null)
+    public function loadFixtures($dir, ObjectManager $om = null)
     {
+        if (null === $om) {
+            $om = $this->get('doctrine')->getManager();
+        }
+
         $loader    = new \Nelmio\Alice\Loader\Yaml();
         $persister = new \Nelmio\Alice\ORM\Doctrine($om);
 
@@ -51,7 +55,6 @@ class TacticsWebTestCase extends WebTestCase
         $user->setPassword($user->getPassword() . '{' . $user->getSalt() . '}');
 
         $manager->updateUser($user);
-        $manager->reloadUser($user);
 
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => $usernameOrEmail,
@@ -70,16 +73,17 @@ class TacticsWebTestCase extends WebTestCase
 
     /**
      * Returns an authentificated client
-     * 
+     *
      * @return test.Client
      */
-    public function getAuthClient() {
+    public function getAuthClient()
+    {
         $client = static::createClient(array(), array('PHP_AUTH_USER' => 'test@tactics.be', 'PHP_AUTH_PW' => 'tijdelijk'));
         $client->followRedirects(true);
         $this->client = $client;
         return $this->client;
     }
-    
+
     // POSSIBILITY 2
     /*public function createAuthentifcatedClient($firewall, $role = 'ROLE_USER')
     {   
@@ -93,16 +97,28 @@ class TacticsWebTestCase extends WebTestCase
         return $client;
         
     }*/
-    
+
     /**
-     * Returns the url 
-     * 
+     * Returns the url
+     *
      * @param string $route
      * @return string $url
      */
-    public function getUrlFromRoute($route, $options = array()) {
+    public function getUrlFromRoute($route, $options = array())
+    {
         //$router = $client->getContainer()->get('router');
         $router = $this->client->getKernel()->getContainer()->get('router');
         return $router->generate($route, $options);
+    }
+
+    /**
+     * Makes a get request to a route and returns a crawler object
+     *
+     * @param $route
+     * @return mixed
+     */
+    public function request($client, $route, $method = 'GET')
+    {
+        return $client->request($method, $this->get('router')->generate($route));
     }
 }
