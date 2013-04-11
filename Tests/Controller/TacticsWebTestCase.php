@@ -117,8 +117,8 @@ class TacticsWebTestCase extends WebTestCase
      * @param $route
      * @return mixed
      */
-    public function request($client, $route, $method = 'GET')
+    public function request($client, $route, $params = array(), $method = 'GET')
     {
-        return $client->request($method, $this->get('router')->generate($route));
+        return $client->request($method, $this->get('router')->generate($route, $params));
     }
 }
