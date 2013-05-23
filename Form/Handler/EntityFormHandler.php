@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
-class EntityFormHandler
+class EntityFormHandler implements \FormHandlerInterface
 {
     /**
      * @var Symfony\Component\HttpFoundation\Request $request
@@ -32,10 +32,7 @@ class EntityFormHandler
     protected $translator;
 
     /**
-     * constructor
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\DependencyInjection\Container $container
+     * {@inheritdoc}
      */
     public function __construct(Request $request, ObjectManager $em, Session $session, Translator $translator)
     {
@@ -46,10 +43,7 @@ class EntityFormHandler
     }
 
     /**
-     * processes the form
-     *
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @return boolean
+     * {@inheritdoc}
      */
     public function process(FormInterface $form)
     {
@@ -67,9 +61,7 @@ class EntityFormHandler
     }
 
     /**
-     * Returns the currently used entity manager
-     *
-     * @return \Doctrine\Common\Persistence\ObjectManager|Doctrine\Common\Persistence\ObjectManager
+     * {@inheritdoc}
      */
     public function getEntityManager()
     {
@@ -77,10 +69,7 @@ class EntityFormHandler
     }
 
     /**
-     * Replace the currently used entity manager
-     *
-     * @param \Doctrine\Common\Persistence\ObjectManager $em
-     * @return EntityFormHandler
+     * {@inheritdoc}
      */
     public function setEntityManager(ObjectManager $em)
     {
