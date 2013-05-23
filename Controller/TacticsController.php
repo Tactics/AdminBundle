@@ -4,7 +4,7 @@ namespace Tactics\Bundle\AdminBundle\Controller;
 
 use Tactics\TableBundle\QueryBuilderFilter\QueryBuilderFilter;
 use Tactics\Bundle\AdminBundle\Entity\TacticsEntityInterface;
-
+use Tactics\Bundle\AdminBundle\Form\Handler\FormHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TacticsController extends Controller
@@ -98,7 +98,7 @@ class TacticsController extends Controller
      * @param Symfony\Component\Form $form
      * @return bool form submission success.
      */
-    public function handleFormSubmissionOnPOST($form, \FormHandlerInterface $formHandler = null)
+    public function handleFormSubmissionOnPOST($form, FormHandlerInterface $formHandler = null)
     {
         if(!$formHandler) {
             $formHandler = $this->get('tactics.entity.form.handler');
