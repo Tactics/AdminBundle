@@ -11,14 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 interface FormHandlerInterface
 {
     /**
-     * constructor
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\DependencyInjection\Container $container
-     */
-    public function __construct(Request $request, ObjectManager $em, Session $session, Translator $translator);
-
-    /**
      * processes the form
      *
      * @param \Symfony\Component\Form\FormInterface $form
