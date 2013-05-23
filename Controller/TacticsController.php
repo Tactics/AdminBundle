@@ -98,10 +98,12 @@ class TacticsController extends Controller
      * @param Symfony\Component\Form $form
      * @return bool form submission success.
      */
-    public function handleFormSubmissionOnPOST($form)
+    public function handleFormSubmissionOnPOST($form, \FormHandlerInterface $formHandler = null)
     {
-        $formHandler = $this->get('tactics.entity.form.handler');
-        
+        if(!$formHandler) {
+            $formHandler = $this->get('tactics.entity.form.handler');
+        }
+
         return $formHandler->process($form);        
     }
     
