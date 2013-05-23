@@ -8,8 +8,9 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Tactics\Bundle\AdminBundle\Form\Handler\FormHandlerInterface;
 
-class EntityFormHandler implements \FormHandlerInterface
+class EntityFormHandler implements FormHandlerInterface
 {
     /**
      * @var Symfony\Component\HttpFoundation\Request $request
