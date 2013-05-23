@@ -1,4 +1,5 @@
 <?php
+namespace Tactics\Bundle\AdminBundle\Form\Handler;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
