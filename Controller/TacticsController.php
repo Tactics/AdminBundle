@@ -313,6 +313,8 @@ class TacticsController extends Controller
         if ($entity && !$this->get('tactics.access_checker')->checkUserAccess($entity)) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
         }
+
+	return true;
     }
     
 }
