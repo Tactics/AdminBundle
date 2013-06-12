@@ -32,6 +32,8 @@ class EntityFormHandler implements FormHandlerInterface
      */
     protected $translator;
 
+    private $successCallback;
+
     /**
      * {@inheritdoc}
      */
@@ -46,7 +48,7 @@ class EntityFormHandler implements FormHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function process(FormInterface $form)
+    public function process(FormInterface $form, $success)
     {
         if ('POST' === $this->request->getMethod()) {
             $form->bind($this->request);
@@ -59,6 +61,11 @@ class EntityFormHandler implements FormHandlerInterface
         }
 
         return false;
+    }
+
+    public function setSuccessCallback($callback)
+    {
+        $this->successCallback = $callback;
     }
 
     /**
@@ -86,8 +93,12 @@ class EntityFormHandler implements FormHandlerInterface
      */
     protected function onSuccess(FormInterface $form)
     {
-        $this->em->persist($form->getData());
-        $this->em->flush();
+        if ($this->successCallback) {
+            call_user_func($this->successCallback, $form);
+        } else {
+            $this->em->persist($form->getData());
+            $this->em->flush();
+        }
 
         $this->setFlashSuccess();
     }
