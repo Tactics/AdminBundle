@@ -48,7 +48,7 @@ class EntityFormHandler implements FormHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function process(FormInterface $form, $success)
+    public function process(FormInterface $form)
     {
         if ('POST' === $this->request->getMethod()) {
             $form->bind($this->request);
