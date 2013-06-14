@@ -708,6 +708,10 @@ class Show implements ContainerAwareInterface
         $trueValue = isset($options['boolean_true_value']) ? $options['boolean_true_value'] : 'Yes';
         $falseValue = isset($options['boolean_false_value']) ? $options['boolean_false_value'] : 'No';
 
+        if($value === null) {
+            return '-';
+        }
+
         return $value ? $trueValue : $falseValue;
     }
 }
