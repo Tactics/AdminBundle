@@ -9,7 +9,7 @@
     "email": "bart@tactics.be"
   }],
   "require": {
-    "symfony/symfony": "2.3.*",
+    "symfony/symfony": "2.1.*",
     "propel/propel1": "1.6.*",
     "vich/uploader-bundle": "dev-master",
     "tactics/form-bundle": "1.0.*",
