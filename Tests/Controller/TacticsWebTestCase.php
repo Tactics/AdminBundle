@@ -20,6 +20,16 @@ class TacticsWebTestCase extends WebTestCase
      */
     static private $cachedMetadatasSerialized = array();
 
+    public function setUp()
+    {
+       static::$kernel = static::createKernel(array(
+           'environment' => 'test',
+           'debug' => true,
+       ));
+
+       static::$kernel->boot();
+    }
+
     /**
      * Determine if the Fixtures that define a database backup have been
      * modified since the backup was made.
@@ -132,10 +142,17 @@ class TacticsWebTestCase extends WebTestCase
 
     public function getFosUserClient($usernameOrEmail, $password)
     {
-        $client = static::createClient(array(
-            'environment' => 'test',
-            'debug' => false,
-        ), array(
+        $manager = $this->get('fos_user.user_manager');
+        $em      = $this->get('doctrine')->getEntityManager();
+
+        $user = $manager->findUserByUsernameOrEmail($usernameOrEmail);
+
+        // TODO FOSUser __construct sets a salt. Can I do anything about this?
+        $user->setPassword($user->getPassword() . '{' . $user->getSalt() . '}');
+
+        $manager->updateUser($user);
+
+        $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => $usernameOrEmail,
             'PHP_AUTH_PW'   => $password,
         ));
