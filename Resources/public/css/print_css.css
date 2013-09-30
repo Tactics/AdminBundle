@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : print_css
     Created on : 12-sep-2012, 9:30:14
     Author     : Jeroen
@@ -105,4 +105,8 @@ body {
 .only_print {
     display: block ! important;
     color: black ! important;
+}
+
+a[href]:after {
+    content: "" ! important;
 }
