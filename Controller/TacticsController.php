@@ -22,27 +22,27 @@ class TacticsController extends Controller
             throw $this->createNotFoundException($notice);
         }
     }
-    
+
     /**
      * Creates an access denied exception if the the access to the object is denied
-     * 
+     *
      * @param boolean $accessGranted
      * @param (optional) String $type of the object
      */
     public function createAccessDeniedExceptionUnless($accessGranted)
     {
-        if (!$accessGranted) {            
+        if (!$accessGranted) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
         }
     }
-    
+
     /**
      * Check if the current user has the given role
-     * 
+     *
      * @param string $role
      * @return boolean
      */
-    public function isGranted($role)            
+    public function isGranted($role)
     {
         return $this->get('security.context')->isGranted($role);
     }
@@ -59,7 +59,7 @@ class TacticsController extends Controller
     {
         return $this->container->get('tactics.table.factory')->createBuilder($type, $options);
     }
-    
+
     /**
      * Creates and returns a QueryBuilderFilter instance
      *
@@ -67,11 +67,11 @@ class TacticsController extends Controller
      *
      * @return QueryBuilderFilter
      */
-    public function createFilter($type, array $options = array())
+    public function createFilter($type, array $defaultValues = array())
     {
-        $filter = new QueryBuilderFilter($this->container);
+        $filter = new QueryBuilderFilter($this->container, $defaultValues);
         $filter->buildFromType($type);
-        
+
         return $filter;
     }
 
@@ -104,22 +104,22 @@ class TacticsController extends Controller
             $formHandler = $this->get('tactics.entity.form.handler');
         }
 
-        return $formHandler->process($form);        
+        return $formHandler->process($form);
     }
-    
+
     /**
      * Shortcut to the Doctrine repository
-     * 
+     *
      * @return Doctrine\ORM\EntityRepository
      */
     public function getRepository($repository, $managerName = null)
     {
         return $this->getDoctrine()->getRepository($repository, $managerName);
     }
-    
+
     /**
      * Adds a default breadcrumb
-     * 
+     *
      * @param Object $entity
      * @param string $type
      */
@@ -129,7 +129,7 @@ class TacticsController extends Controller
             $this->get('apy_breadcrumb_trail')
                 ->add((string) $entity);
         }
-        
+
         switch ($type)
         {
             case 'edit':
@@ -137,11 +137,11 @@ class TacticsController extends Controller
                     $this->get('apy_breadcrumb_trail')
                     ->add(ucfirst($this->get('translator')->trans('actions.edit', array(), 'TacticsAdminBundle')));
                 } else {
-                    $this->get('apy_breadcrumb_trail')                
+                    $this->get('apy_breadcrumb_trail')
                         ->add(ucfirst($this->get('translator')->trans('actions.new', array(), 'TacticsAdminBundle')));
                 }
                 break;
-                
+
             case 'show':
             default:
                 break;
@@ -163,22 +163,22 @@ class TacticsController extends Controller
     public function trans($id, array $parameters = array(), $domain = null, $locale = null)
     {
         return $this->get('translator')->trans($id, $parameters, $domain, $locale);
-    }    
-    
+    }
+
     /**
      * Sets a parameter in the flashbag
-     * 
+     *
      * @param string $name
      * @param string $value
      */
     public function setFlash($name, $value)
-    {        
+    {
         $this->get('session')->getFlashBag()->set($name, $value);
-    }     
+    }
 
     /**
      * Sets a success message for display
-     * 
+     *
      * @param string $message    The message to display
      * @param array  $parameters An array of parameters for the message
      * @param string $domain     The domain for the message
@@ -188,10 +188,10 @@ class TacticsController extends Controller
     {
         $this->setFlash('message.success', $this->trans($message, $parameters, $translationDomain, $locale));
     }
-    
+
     /**
      * Sets a warning message for display
-     * 
+     *
      * @param string $message    The message to display
      * @param array  $parameters An array of parameters for the message
      * @param string $domain     The domain for the message
@@ -204,7 +204,7 @@ class TacticsController extends Controller
 
     /**
      * Sets an error message for display
-     * 
+     *
      * @param string $message    The message to display
      * @param array  $parameters An array of parameters for the message
      * @param string $domain     The domain for the message
@@ -217,7 +217,7 @@ class TacticsController extends Controller
 
     /**
      * Sets an info message for display
-     * 
+     *
      * @param string $message    The message to display
      * @param array  $parameters An array of parameters for the message
      * @param string $domain     The domain for the message
@@ -227,10 +227,10 @@ class TacticsController extends Controller
     {
         $this->setFlash('message.info', $this->trans($message, $parameters, $translationDomain, $locale));
     }
-    
+
     /**
      * serializes the given value
-     * 
+     *
      * @param mixed $value
      * @return string
      */
@@ -248,10 +248,10 @@ class TacticsController extends Controller
         }
         return serialize($valueToSerialize);
     }
-    
+
     /**
      * return unserialized value
-     * 
+     *
      * @param mixed $value
      * @return mixed
      */
@@ -263,13 +263,13 @@ class TacticsController extends Controller
         }
         return $deserializedValue;
     }
-    
+
     public function serializeObject($object)
     {
         $namespace = get_class($object);
         return array($namespace => $object->getId());
     }
-    
+
     public function serializeArray($array)
     {
         foreach ($array as $key => $element) {
@@ -281,7 +281,7 @@ class TacticsController extends Controller
             }
             $array[$key] = $element;
         }
-        
+
         return $array;
     }
 
@@ -302,11 +302,11 @@ class TacticsController extends Controller
         }
         return $array;
     }
-    
+
     /**
      * checks if user has access on the given entity
-     * 
-     * @param type $entity     
+     *
+     * @param type $entity
      */
     public function checkUserAccess($entity = null)
     {
@@ -316,5 +316,5 @@ class TacticsController extends Controller
 
 	return true;
     }
-    
+
 }
