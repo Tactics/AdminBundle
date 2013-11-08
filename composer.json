@@ -9,12 +9,11 @@
     "email": "bart@tactics.be"
   }],
   "require": {
-    "symfony/symfony": "2.1.*",
-    "propel/propel1": "1.6.*",
+    "symfony/symfony": "2.3.*",
     "vich/uploader-bundle": "dev-master",
-    "tactics/form-bundle": "1.0.*",
-    "tactics/breadcrumb-trail-bundle": "dev-master",
-    "friendsofsymfony/jsrouting-bundle": "1.0.*",
+    "tactics/form-bundle": "dev-sfupgrade",
+    "tactics/breadcrumb-trail-bundle": "dev-sfupgrade",
+    "friendsofsymfony/jsrouting-bundle": "1.4.*",
     "nelmio/alice": "1.3.0"
 
   },
