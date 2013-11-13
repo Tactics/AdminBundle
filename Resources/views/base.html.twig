@@ -6,24 +6,20 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
+
         {% block stylesheets %}
+            <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+            <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css">
+            <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
             <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+
             {% stylesheets
-                '@TacticsAdminBundle/Resources/public/css/bootstrap.min.css'
-                '@TacticsAdminBundle/Resources/public/css/font-awesome.css'
-                '@TacticsAdminBundle/Resources/public/css/adminia.css'
-                '@TacticsAdminBundle/Resources/public/css/adminia-responsive.css'
                 '@TacticsAdminBundle/Resources/public/css/pages/login.css'
                 '@TacticsAdminBundle/Resources/public/css/pages/dashboard.css'
                 '@TacticsFormBundle/Resources/public/css/base.css'
-            %}
-            <link href='{{ asset_url }}' type='text/css' rel="stylesheet"></script>
-            {% endstylesheets %}
-
-            {% stylesheets
                 '@TacticsAdminBundle/Resources/public/css/print_css.css'
             %}
-            <link href='{{ asset_url }}' type='text/css' rel="stylesheet" media="print"></script>
+            <link href='{{ asset_url }}' type='text/css' rel="stylesheet"></script>
             {% endstylesheets %}
         {% endblock %}
     </head>
@@ -55,7 +51,7 @@
 
         {% block content_container %}
         {% endblock %}
-        
+
         <div id="switch_user">
             <!-- Switch user -->
             <div id="switchUserDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="switchUserDialogLabel" aria-hidden="true">
@@ -74,7 +70,7 @@
               </form>
             </div>
         </div>
-        
+
         <div id="footer">
             <div class="container">
                 <hr>
