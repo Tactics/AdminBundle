@@ -1,11 +1,11 @@
 {% extends '::base.html.twig' %}
 
 {% block top_menu %}
-    {% render 'TacticsAdminBundle:Default:menu' with { 'top' : true  } %}
+    {% render(controller('TacticsAdminBundle:Default:menu', { 'top' : true  })) %}
 {% endblock %}
 
 {% block sub_nav %}
-    {% render 'TacticsAdminBundle:Default:subnav' %}
+    {% render(controller('TacticsAdminBundle:Default:subnav')) %}
 {% endblock %}
 
 {% block personal_menu %}
