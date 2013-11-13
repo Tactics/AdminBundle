@@ -17,32 +17,25 @@
                 '@TacticsAdminBundle/Resources/public/css/pages/login.css'
                 '@TacticsAdminBundle/Resources/public/css/pages/dashboard.css'
                 '@TacticsFormBundle/Resources/public/css/base.css'
-                '@TacticsAdminBundle/Resources/public/css/print_css.css'
             %}
             <link href='{{ asset_url }}' type='text/css' rel="stylesheet"></script>
             {% endstylesheets %}
         {% endblock %}
     </head>
     <body class="env-development">
-        <div class="navbar navbar-fixed-top navbar-inverse">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="{{ path('home') }}">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('home') }}">
                     {% block top_menu_brand %}
                         {{title|default('Tactics admin')}}
                     {% endblock %}
-                    </a>
-
-                    {% block top_menu %}
-                    {% endblock %}
-
-                    <ul class="nav pull-right">
-                        {% block personal_menu %}
-                        {% endblock %}
-                    </ul>
-                </div> <!-- /container -->
-            </div> <!-- /navbar-inner -->
-        </div> <!-- /navbar -->
+                </a>
+            </div>
+            {% block top_menu %}
+            {% endblock %}
+            {% block personal_menu %}
+            {% endblock %}
+        </nav>
 
         {% block sub_nav %}
         {% endblock %}
@@ -90,10 +83,12 @@
               <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
             <![endif]-->
 
+            <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+            <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
             {% javascripts
-                '@TacticsAdminBundle/Resources/public/js/jquery-1.8.0.min.js'
                 '@TacticsAdminBundle/Resources/public/js/excanvas.min.js'
-                '@TacticsAdminBundle/Resources/public/js/bootstrap.js'
                 '@TacticsAdminBundle/Resources/public/js/show.js'
                 '@TacticsAdminBundle/Resources/public/js/admin.js'
                 '@TacticsAdminBundle/Resources/public/js/menu.js'

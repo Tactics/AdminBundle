@@ -1,6 +1,5 @@
-<div class="subnav subnav-fixed nav-collapse collapse">
-    <div class="container">
-        <ul class="nav nav-pills">
+<nav class="navbar navbar-default" role="navigation" style="margin-top:90px;">
+    <ul class="nav navbar-nav">
         {% for module_group_name, modules in menu %}
             {% for name, module in modules %}
                 {% if module.route is defined %}
@@ -34,6 +33,5 @@
                 {% endif %}
             {% endfor %}
         {% endfor %}
-        </ul>
-    </div>
-</div>
+    </ul>
+</nav>
