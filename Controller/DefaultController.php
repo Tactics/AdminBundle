@@ -22,7 +22,19 @@ class DefaultController extends \Tactics\Bundle\AdminBundle\Controller\TacticsCo
                 // Has subactions
                 if(isset($item2['actions'])) {
                     foreach($item2['actions'] as $menuIndex3 => $action){
-                        if(isset($action['role']) && ! $this->isGranted($action['role'])){
+                        if (isset($action['role']) && is_array($action['role'])) {
+                            $remove = true;
+                            foreach ($action['role'] as $role) {
+                                if ($this->isGranted($role)) {
+                                    $remove = false;
+                                    break;
+                                }
+                            }
+
+                            if ($remove) {
+                                unset($menu[$menuIndex1][$menuIndex2]['actions'][$menuIndex3]);
+                            }
+                        } elseif (isset($action['role']) && ! $this->isGranted($action['role'])){
                             unset($menu[$menuIndex1][$menuIndex2]['actions'][$menuIndex3]);
                         }
                     }
