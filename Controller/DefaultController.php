@@ -13,51 +13,6 @@ use Tactics\Bundle\AdminBundle\Show\Show;
 
 class DefaultController extends \Tactics\Bundle\AdminBundle\Controller\TacticsController
 {
-
-    private function removeNotAllowedItems($menu)
-    {
-        // Remove actions not allowed if option role is used
-        foreach($menu as $menuIndex1 => $item) {
-            foreach($item as $menuIndex2 => $item2){
-                // Has subactions
-                if(isset($item2['actions'])) {
-                    foreach($item2['actions'] as $menuIndex3 => $action){
-                        if (isset($action['role']) && is_array($action['role'])) {
-                            $remove = true;
-                            foreach ($action['role'] as $role) {
-                                if ($this->isGranted($role)) {
-                                    $remove = false;
-                                    break;
-                                }
-                            }
-
-                            if ($remove) {
-                                unset($menu[$menuIndex1][$menuIndex2]['actions'][$menuIndex3]);
-                            }
-                        } elseif (isset($action['role']) && ! $this->isGranted($action['role'])){
-                            unset($menu[$menuIndex1][$menuIndex2]['actions'][$menuIndex3]);
-                        }
-                    }
-                    if(count($menu[$menuIndex1][$menuIndex2]['actions']) == 0){
-                        unset($menu[$menuIndex1][$menuIndex2]);
-                    }
-                }
-                // Has direct route and not allowed
-                else if(isset($item2['role']) && ! $this->isGranted($item2['role'])){
-                    unset($menu[$menuIndex1][$menuIndex2]);
-                }
-            }
-            // If subarray empty
-            if(count($menu[$menuIndex1]) == 0) {
-                unset($menu[$menuIndex1]);
-            }
-        }
-
-        return $menu;
-
-    }
-
-
     /**
      * @return type
      */
@@ -75,9 +30,9 @@ class DefaultController extends \Tactics\Bundle\AdminBundle\Controller\TacticsCo
      */
     public function menuAction($top = false)
     {
-        $menu = $this->container->getParameter('tactics_menu');
-        $menu = $this->removeNotAllowedItems($menu);
-
+        $menu = $this->container
+            ->get('tactics.menu_builder')
+            ->build($this->container->getParameter('tactics_menu'));
 
         $template = $top ? 'TacticsAdminBundle:Default:top_menu.html.twig' : 'TacticsAdminBundle:Default:side_menu.html.twig';
 
@@ -88,8 +43,9 @@ class DefaultController extends \Tactics\Bundle\AdminBundle\Controller\TacticsCo
 
     public function subnavAction()
     {
-        $menu = $this->container->getParameter('tactics_menu');
-        $menu = $this->removeNotAllowedItems($menu);
+        $menu = $this->container
+            ->get('tactics.menu_builder')
+            ->build($this->container->getParameter('tactics_menu'));
 
         return $this->render('TacticsAdminBundle:Default:subnav.html.twig', array(
             'menu' => $menu
