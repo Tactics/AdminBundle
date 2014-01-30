@@ -15,6 +15,7 @@ class MenuBuilderTest extends \PHPUnit_Framework_TestCase
         'SEARCH_DEER' => false,
         'DELETE_FISH' => false,
         'FISH_MASTER' => false,
+        'TACTICS'     => false,
     );
 
     public function setUp()
@@ -42,22 +43,18 @@ class MenuBuilderTest extends \PHPUnit_Framework_TestCase
                     'actions' => array(
                         array('label' => 'Search deer', 'role' => 'SEARCH_DEER'), // action
                     ),
-                )
+                ),
+            ),
+            'Organisations' => array(
+                'Tactics' => array(
+                    'actions' => array(
+                        array('label' => 'Like Tactics', 'role' => 'TACTICS'),
+                    ),
+                ),
             ),
         );
 
         $this->builder = new MenuBuilder($this->security);
-    }
-
-    /**
-     * @test
-     */
-    public function it_removes_item_when_it_has_no_children()
-    {
-        $menu = $this->buildMenu();
-
-        $this->assertFalse(isset($menu['Airplanes']));
-        $this->assertTrue(isset($menu['Animals']));
     }
 
     /**
@@ -123,6 +120,20 @@ class MenuBuilderTest extends \PHPUnit_Framework_TestCase
         $menu = $this->buildMenu();
 
         $this->assertFalse(isset($menu['Animals']['Deer']));
+    }
+
+    /**
+     * @test
+     */
+    public function it_removes_item_when_it_has_no_children()
+    {
+        $this->whenUserDoesNotHaveRole('TACTICS');
+
+        $menu = $this->buildMenu();
+
+        $this->assertFalse(isset($menu['Airplanes']));
+        // test cascading
+        $this->assertFalse(isset($menu['Organisations']));
     }
 
     private function whenUserHasRole($role)
