@@ -12,6 +12,7 @@ class MenuBuilderTest extends \PHPUnit_Framework_TestCase
     private $roleMap = array(
         'SEARCH_FISH' => false,
         'SEARCH_CATS' => false,
+        'SEARCH_DEER' => false,
     );
 
     public function setUp()
@@ -33,6 +34,11 @@ class MenuBuilderTest extends \PHPUnit_Framework_TestCase
                         array('label' => 'Search', 'role' => 'SEARCH_FISH') // action
                     ),
                 ),
+                'Deer' => array(
+                    'actions' => array(
+                        array('label' => 'Search deer', 'role' => 'SEARCH_DEER'), // action
+                    ),
+                )
             ),
         );
 
@@ -72,6 +78,18 @@ class MenuBuilderTest extends \PHPUnit_Framework_TestCase
         $menu = $this->buildMenu();
 
         $this->assertFalse(isset($menu['Animals']['Fish']['actions'][0]));
+    }
+
+    /**
+     * @test
+     */
+    public function it_removes_subitem_when_it_does_not_contain_actions()
+    {
+        $this->whenUserDoesNotHaveRole('SEARCH_DEER');
+
+        $menu = $this->buildMenu();
+
+        $this->assertFalse(isset($menu['Animals']['Deer']));
     }
 
     private function whenUserHasRole($role)
