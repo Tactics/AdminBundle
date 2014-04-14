@@ -27,7 +27,7 @@
             {% endstylesheets %}
         {% endblock %}
     </head>
-    <body class="env-development">
+    <body class="{{ app.environment }} {{ (app.environment == 'dev' or app.environment == 'stage') ? 'env-development' : '' }}">
         <div class="navbar navbar-fixed-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
