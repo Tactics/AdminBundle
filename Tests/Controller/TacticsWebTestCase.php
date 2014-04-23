@@ -83,7 +83,7 @@ class TacticsWebTestCase extends WebTestCase
 
                 if (!isset(self::$cachedMetadatas[$omName])) {
                     self::$cachedMetadatas[$omName] = $om->getMetadataFactory()->getAllMetadata();
-                    self::$cachedMetadatasSerialized[$omName] = self::$cachedMetadatas[$omName];
+                    self::$cachedMetadatasSerialized[$omName] = serialize(self::$cachedMetadatas[$omName]);
                 }
                 $metadatas = self::$cachedMetadatas[$omName];
 

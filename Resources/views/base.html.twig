@@ -23,19 +23,25 @@
         {% endblock %}
     </head>
     <body class="{{ app.environment }} {{ (app.environment == 'dev' or app.environment == 'stage') ? 'env-development' : '' }}">
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path('home') }}">
+        <div class="navbar navbar-fixed-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="{{ path('home') }}">
                     {% block top_menu_brand %}
                         {{title|default('Tactics admin')}}
                     {% endblock %}
-                </a>
-            </div>
-            {% block top_menu %}
-            {% endblock %}
-            {% block personal_menu %}
-            {% endblock %}
-        </nav>
+                    </a>
+
+                    {% block top_menu %}
+                    {% endblock %}
+
+                    <ul class="nav pull-right">
+                        {% block personal_menu %}
+                        {% endblock %}
+                    </ul>
+                </div> <!-- /container -->
+            </div> <!-- /navbar-inner -->
+        </div> <!-- /navbar -->
 
         {% block sub_nav %}
         {% endblock %}
