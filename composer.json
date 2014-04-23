@@ -21,7 +21,7 @@
     "require": {
         "symfony/symfony": "2.1.*",
         "propel/propel1": "1.6.*",
-        "vich/uploader-bundle": "dev-master",
+        "tactics/uploader-bundle": "dev-master",
         "tactics/form-bundle": "dev-master",
         "tactics/breadcrumb-trail-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "1.0.*",
