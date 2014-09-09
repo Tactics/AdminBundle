@@ -1,7 +1,7 @@
 {% extends '::secure.html.twig' %}
 
 {% block top_menu %}
-  {% render 'TacticsAdminBundle:Default:menu' with { 'top' : true  } %}
+  {% render(controller('TacticsAdminBundle:Default:menu', { 'top' : true  })) %}
 {% endblock %}
 
 {% block content %}
