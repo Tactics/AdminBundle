@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 
+use Symfony\Component\HttpFoundation\Response;
 use Tactics\Bundle\PersoonBundle\Model\PersoonPeer;
 use Tactics\Bundle\PersoonBundle\Model\Persoon;
 
@@ -47,9 +48,14 @@ class DefaultController extends \Tactics\Bundle\AdminBundle\Controller\TacticsCo
             ->get('tactics.menu_builder')
             ->build($this->container->getParameter('tactics_menu'));
 
-        return $this->render('TacticsAdminBundle:Default:subnav.html.twig', array(
-            'menu' => $menu
-        ));
+        $response = new Response();
+        $response->setSharedMaxAge(3600);
+
+        return $this->render(
+            'TacticsAdminBundle:Default:subnav.html.twig',
+            array('menu' => $menu),
+            $response
+        );
     }
 
     /**
