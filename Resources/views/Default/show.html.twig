@@ -27,7 +27,7 @@
             <tbody>
 
             {% for field in show.getFields('left') %}
-                <tr {% if 'row_class' in field.options|keys %} class="{{ field.options['row_class'] }}" {% endif %}>
+                <tr {% if field.options.row_class is defined %} class="{{ field.options['row_class'] }}" {% endif %}>
                     <th class="span2">
                         {{ field.label|trans|capitalize }}
                     </th>
